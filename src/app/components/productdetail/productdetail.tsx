@@ -1,7 +1,7 @@
 import React from 'react'
 import { DropdownButton } from '../dropdown/dropdown'
 import { FaAngleRight } from "react-icons/fa6";
-import Image from 'next/image';
+
 
 export const ProductDetailComponent = () => {
   return (

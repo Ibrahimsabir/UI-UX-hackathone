@@ -1,4 +1,3 @@
-import { HiH1 } from "react-icons/hi2";
 import Card from "../card/card";
 import { GoDotFill } from "react-icons/go";
 
