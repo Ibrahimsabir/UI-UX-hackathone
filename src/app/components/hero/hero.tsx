@@ -17,46 +17,57 @@ export const Hero = () => {
           Shop Now
         </button>
         <div className="lg:hidden flex flex-col items-center gap-4 mt-8">
-        <div className="flex justify-center items-center gap-4">
+          <div className="flex justify-center items-center gap-4">
+            <Image
+              src="/Frame 54.png"
+              alt="Frame 54"
+              layout="intrinsic"
+              width={80}
+              height={36}
+              className="object-contain"
+            />
+            <Image
+              src="/Frame 55.png"
+              alt="Frame 55"
+              layout="intrinsic"
+              width={80}
+              height={36}
+              className="object-contain"
+            />
+          </div>
           <Image
-            src="/Frame 54.png"
-            alt="Frame 54"
-            layout="intrinsic"
-            width={80}
-            height={36}
-            className="object-contain"
-          />
-          <Image
-            src="/Frame 55.png"
-            alt="Frame 55"
+            src="/Frame 56.png"
+            alt="Frame 56"
             layout="intrinsic"
             width={80}
             height={36}
             className="object-contain"
           />
         </div>
-        <Image
-          src="/Frame 56.png"
-          alt="Frame 56"
-          layout="intrinsic"
-          width={80}
-          height={36}
-          className="object-contain"
-        />
       </div>
-      </div>
-
 
       {/* Image Section */}
       <div className="lg:w-1/2 w-full h-full relative">
-        {/* Vector Image Positioned Above */}
-        <div className="absolute top-64 sm:top-20 left-6 sm:left-16 lg:top-16 lg:left-12 z-10">
+        {/* Left-Center Vector */}
+        <div className="absolute left-[60px] top-[260px] transform -translate-y-1/2 z-10">
           <Image
-            src="/Vector (3).png" // Vector image
-            alt="Vector Image"
+            src="/Vector (3).png"
+            alt="Vector Image Left-Center"
             layout="intrinsic"
             width={40}
             height={40}
+            className="object-contain"
+          />
+        </div>
+
+        {/* Right-Top Vector */}
+        <div className="absolute right-8 top-10 z-10">
+          <Image
+            src="/Vector (3).png"
+            alt="Vector Image Right-Top"
+            layout="intrinsic"
+            width={80}
+            height={80}
             className="object-contain"
           />
         </div>
@@ -67,14 +78,11 @@ export const Hero = () => {
             src="/for-mobile.png"
             alt="Hero Image"
             layout="fill"
-            objectFit="contain" // Keeps the image responsive
+            objectFit="contain"
             className="object-center"
           />
         </div>
       </div>
-
-      {/* Mobile-Only Frames */}
-
     </div>
   );
 };

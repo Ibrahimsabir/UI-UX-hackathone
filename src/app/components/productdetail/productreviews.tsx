@@ -1,5 +1,7 @@
 import Card from "../card/card";
-import { GoDotFill } from "react-icons/go";
+import { AiOutlineSliders } from "react-icons/ai";
+import { IoChevronDownSharp } from "react-icons/io5";
+
 
 
 
@@ -56,11 +58,11 @@ export default function Customer() {
         
         </div>
         <div className="flex w-1/3 justify-end items-center gap-2 my-auto">
-          <GoDotFill className="w-[24px] h-[24px] text-2xl text-gray-700" />
-          <GoDotFill className="w-[24px] h-[24px] text-2xl text-gray-400" />
-          <GoDotFill className="w-[24px] h-[24px] text-2xl text-gray-400" />
+          <AiOutlineSliders className="text-xl w-[40px] h-[40px] text-black bg-gray-100 p-2 rounded-full"/>       
+          <button className="text-lg text-center flex items-center justify-between text-black bg-gray-100 px-6 py-2 gap-2 rounded-full">Latest<IoChevronDownSharp /></button>
+          <button className="text-lg text-center  text-gray-100 bg-black px-6 py-2 gap-2 rounded-full">Write a review</button>
 
-        </div>
+          </div>
       </div>
 
       {/* Dynamic Cards */}
