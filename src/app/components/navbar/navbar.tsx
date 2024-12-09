@@ -10,7 +10,7 @@ import Link from 'next/link';
 const Navbar = () => {
   return (
     <div className={`font-Integral CF w-full h-[100px] gap-8 `}>
-      <div className="max-w-[1170px] h-full flex flex-col md:flex-row justify-between items-center  sm:px-6 md:px-8 lg:px-0 m-auto">
+      <div className="max-w-[1170px] h-full flex flex-col md:flex-row border-b-2 border-gray-300 justify-between items-center  sm:px-6 md:px-8 lg:px-0 mx-20">
         {/* Logo */}
         <h1 className="text-[32px] font-IntegralCF font-bold mb-4 md:mb-0">SHOP.CO</h1>
         
