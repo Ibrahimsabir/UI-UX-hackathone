@@ -2,9 +2,6 @@ import Card from "../card/card";
 import { AiOutlineSliders } from "react-icons/ai";
 import { IoChevronDownSharp } from "react-icons/io5";
 
-
-
-
 export default function Customer() {
   // Dummy data for cards
   const CustomerData = [
@@ -49,20 +46,28 @@ export default function Customer() {
   return (
     <div className="flex font-Satoshi flex-col justify-between items-center m-auto gap-0">
       {/* Header */}
-      <div className="w-[90%] h-[80px] flex justify-start   items-center m-auto">
-        <div className="flex w-2/3 h-[20px] justify-start gap-2 items-center mx-auto">
-        <h1 className="flex gap-4 sm:h-[58px] sm:w-[654px]  w-[286px] h-[20px] left-4 text-[#000000] lg:left-[100px] top-[150px] text-[20px] sm:text-[28px] sm:mt-[50px] leading-[57.px] font-semibold mb-2 mx-auto">
-          All Reviews 
-          <h2 className=" text-lg items-baseline text-gray-500">(415)</h2>
-        </h1>
-        
-        </div>
-        <div className="flex w-1/3 justify-end items-center gap-2 my-auto">
-          <AiOutlineSliders className="text-xl w-[40px] h-[40px] text-black bg-gray-100 p-2 rounded-full"/>       
-          <button className="text-lg text-center flex items-center justify-between text-black bg-gray-100 px-6 py-2 gap-2 rounded-full">Latest<IoChevronDownSharp /></button>
-          <button className="text-lg text-center  text-gray-100 bg-black px-6 py-2 gap-2 rounded-full">Write a review</button>
+      <div className="w-[90%] h-[80px] flex flex-col sm:flex-row justify-between items-center m-auto">
+  {/* Left Section */}
+  <div className="flex flex-col sm:flex-row w-full sm:w-2/3 h-auto justify-start gap-2 items-start sm:items-center">
+    <h1 className="text-black flex gap-2 text-lg sm:text-xl lg:text-2xl font-semibold mb-2 sm:mb-0">
+      All Reviews 
+      <h2 className="text-gray-500 text-base sm:text-lg mt-1">(415)</h2>
+    </h1>
+  </div>
 
-          </div>
+  {/* Right Section */}
+  <div className="flex flex-wrap sm:flex-nowrap w-full sm:w-1/3 justify-end items-center gap-2 mt-2 sm:mt-0">
+    <AiOutlineSliders className="text-xl sm:w-[40px] sm:h-[40px] text-black bg-gray-100 p-2 rounded-full" />       
+    <button className="text-sm sm:text-lg flex items-center justify-between text-black bg-gray-100 px-4 sm:px-6 py-2 gap-2 rounded-full">
+      Latest
+      <IoChevronDownSharp />
+    </button>
+    <button className="text-sm sm:text-lg text-gray-100 bg-black px-4 sm:px-6 py-2 gap-2 rounded-full">
+      Write a review
+    </button>
+  </div>
+
+
       </div>
 
       {/* Dynamic Cards */}
