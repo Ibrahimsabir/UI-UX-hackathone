@@ -75,7 +75,7 @@ export const Hero = () => {
         {/* Main Hero Image */}
         <div className="relative w-full h-64 sm:h-80 lg:h-full">
           <Image
-            src="/for-mobile.png"
+            src="/coverphoto.png"
             alt="Hero Image"
             layout="fill"
             objectFit="contain"
