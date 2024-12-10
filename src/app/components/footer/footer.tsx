@@ -9,78 +9,66 @@ export default function Footer() {
   return (
     <>
       <NewsLetter />
-      <div className="bg-[#F0F0F0] w-full h-auto pt-16 pb-8 px-4 sm:px-8 lg:px-20">
-        <div className="max-w-[1440px] max-h-[499px] mx-auto pt-20 pb-0 flex flex-col lg:flex-row justify-between items-start lg:h-[499px]  lg:space-y-0">
+      <div className="bg-[#F0F0F0] w-full px-4 sm:px-8 lg:px-20">
+        <div className="max-w-[1440px] mx-auto flex flex-col lg:flex-row justify-between items-start lg:h-[499px] gap-12 pt-16 pb-8">
           {/* Company Info Section */}
-          <div className="flex flex-col gap-4 justify-start items-start ">
-            <h3 className="font-satoshi w-[167px] h-[23px] text-4xl font-bold mb-4">SHOP.CO</h3>
-            <p className="font-satoshi w-[248px] h-[66px] text-sm text-[#00000099] mb-8">
+          <div className="flex flex-col gap-4 items-start">
+            <h3 className="font-satoshi text-2xl sm:text-3xl font-bold">SHOP.CO</h3>
+            <p className="font-satoshi text-sm sm:text-base text-[#00000099]">
               We have clothes that suit your style and which you’re proud to wear. From women to men.
             </p>
             <div className="flex gap-4">
-              <div className="h-[35px] w-[35px] rounded-full bg-white flex justify-center items-center">
-                <IoLogoTwitter className="text-xl" />
-              </div>
-              <div className="h-[35px] w-[35px] rounded-full bg-black text-white flex justify-center items-center">
-                <RiFacebookFill className="text-xl" />
-              </div>
-              <div className="h-[35px] w-[35px] rounded-full bg-white flex justify-center items-center">
-                <FaInstagram className="text-xl" />
-              </div>
-              <div className="h-[35px] w-[35px] rounded-full bg-white flex justify-center items-center">
-                <IoLogoGithub className="text-xl" />
-              </div>
+              {[
+                { Icon: IoLogoTwitter, bg: "bg-white" },
+                { Icon: RiFacebookFill, bg: "bg-black text-white" },
+                { Icon: FaInstagram, bg: "bg-white" },
+                { Icon: IoLogoGithub, bg: "bg-white" },
+              ].map(({ Icon, bg }, index) => (
+                <div
+                  key={index}
+                  className={`h-[40px] w-[40px] ${bg} rounded-full flex justify-center items-center`}
+                >
+                  <Icon className="text-xl" />
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Links Sections */}
-          <div className="flex flex-wrap lg:w-2/3 justify-between">
-            <div className="w-full sm:w-1/2 lg:w-1/4 mb-8">
-              <h5 className="font-satoshi text-lg font-semibold mb-4 tracking-wide">COMPANY</h5>
-              <ul className="font-satoshi text-sm text-[#00000099] space-y-4">
-                <li>About</li>
-                <li>Features</li>
-                <li>Works</li>
-                <li>Career</li>
-              </ul>
-            </div>
-            <div className="w-full sm:w-1/2 lg:w-1/4 mb-8">
-              <h5 className="font-satoshi text-lg font-semibold mb-4 tracking-wide">HELP</h5>
-              <ul className="font-satoshi text-sm text-[#00000099] space-y-4">
-                <li>Customer Support</li>
-                <li>Delivery Details</li>
-                <li>Terms & Conditions</li>
-                <li>Privacy Policy</li>
-              </ul>
-            </div>
-            <div className="w-full sm:w-1/2 lg:w-1/4 mb-8">
-              <h5 className="font-satoshi text-lg font-semibold mb-4 tracking-wide">FAQ</h5>
-              <ul className="font-satoshi text-sm text-[#00000099] space-y-4">
-                <li>Account</li>
-                <li>Deliveries</li>
-                <li>Orders</li>
-                <li>Payments</li>
-              </ul>
-            </div>
-            <div className="w-full sm:w-1/2 lg:w-1/4 mb-8">
-              <h5 className="font-satoshi text-lg font-semibold mb-4 tracking-wide">RESOURCES</h5>
-              <ul className="font-satoshi text-sm text-[#00000099] space-y-4">
-                <li>Free eBooks</li>
-                <li>Developer Tutorials</li>
-                <li>How-to Blogs</li>
-                <li>YouTube Playlists</li>
-              </ul>
-            </div>
+          {/* Links Section */}
+          <div className="flex flex-wrap justify-between gap-8 lg:w-3/4">
+            {[
+              { title: "COMPANY", links: ["About", "Features", "Works", "Career"] },
+              { title: "HELP", links: ["Customer Support", "Delivery Details", "Terms & Conditions", "Privacy Policy"] },
+              { title: "FAQ", links: ["Account", "Deliveries", "Orders", "Payments"] },
+              { title: "RESOURCES", links: ["Free eBooks", "Developer Tutorials", "How-to Blogs", "YouTube Playlists"] },
+            ].map((section, index) => (
+              <div key={index} className="w-full sm:w-1/2 lg:w-1/4">
+                <h5 className="font-satoshi text-lg font-semibold mb-4">{section.title}</h5>
+                <ul className="font-satoshi text-sm sm:text-base text-[#00000099] space-y-2">
+                  {section.links.map((link, idx) => (
+                    <li key={idx}>{link}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* Divider */}
-        <div className="border-t border-[#0000001A] mt-0 mb-4"></div>
+        <div className="border-t border-[#0000001A] my-4"></div>
 
         {/* Footer Bottom Section */}
-        <div className="flex justify-between items-center ">
-          <div className="font-satoshi text-sm text-[#00000099]">Shop.co © 2000-2023, All Rights Reserved</div>
-          <Image src={"/paylogo.png"} alt={"Paylogo2"} height={30} width={281} />
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-center">
+          <div className="font-satoshi text-sm text-[#00000099]">
+            Shop.co © 2000-2023, All Rights Reserved
+          </div>
+          <Image
+            src="/paylogo.png"
+            alt="Payment Logos"
+            height={30}
+            width={281}
+            className="h-auto w-auto"
+          />
         </div>
       </div>
     </>

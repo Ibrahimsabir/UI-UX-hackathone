@@ -7,7 +7,7 @@ export default function NewsLetter(){
             <h5 className="lg:w-[551px] lg:h-[92px] w-[297px] h-[105] font-bold lg:text-[40px] text-[32px] lg:leading-[45px] leading-[35px] text-[#FFFFFF] lg:pt-[40px] pt-[20px] lg:pl-[40px] pl-[24px]">STAY UPTO DATE ABOUT OUR LATEST OFFERS</h5>
             <div className="lg:mt-[40px] mt-[30px] lg:ml-[160px] ml-[24px]">
             <div className="lg:w-[349px] lg:h-[48px] w-[311px] h-[42px] rounded-[62px] bg-[#FFFFFF] flex  text-[#00000066]">
-            <TfiEmail className="ml-5 mt-4" />
+            <TfiEmail className="ml-5 mt-4 text-lg" />
             <p className="py-[12px] px-[16px] leading-[21.6px] text-[16px]">Enter your email address</p>
             </div>
             <div className="lg:w-[349px] lg:h-[48px] w-[311px] h-[42px] rounded-[62px] bg-[#FFFFFF]  text-[#000000] mt-[15px]">
