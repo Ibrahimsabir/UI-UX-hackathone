@@ -2,8 +2,9 @@ import {Hero} from "./components/hero/hero";
 import { LogoSection } from "./components/logosection/logosection";
 import NewArrival from "./components/newarrival/newarrival";
 import TopSeller from "./components/topsell/topsell";
-import DressStyle from "./components/category/category";
+
 import Customer from "./components/customer/customer";
+import Grid from "./components/category/category";
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
     
     <NewArrival/>
     <TopSeller/>
-    <DressStyle/>
+    <Grid/>
     <Customer/>
   </div>
   );

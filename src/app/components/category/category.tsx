@@ -1,72 +1,77 @@
-import React from "react";
-import Image from "next/image";
 
-const DressStyle = () => {
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
+
+const Grid = () => {
   return (
-    <div className="w-[90%] max-w-[1440px] h-[866px] mx-auto mt-12 bg-[#F0F0F0] rounded-2xl p-14">
+    <div className='w-[1240px] h-[866px] rounded-[40px] items-center m-auto py-8 bg-gray-100 mx-auto'>
       {/* Heading */}
-      <div className="text-center mb-6">
-        <h1 className="font-IntegralCF text-4xl font-extrabold leading-[57.6px] my-12">
-          BROWSE DRESS BY
-        </h1>
+      <h1 className='font-[Integral CF] text-5xl font-semibold text-center my-12 mx-auto'>
+        BROWSE BY DRESS STYLE
+      </h1>
+
+      {/* Top Row */}
+      <div className='grid grid-cols-[407px_684px] gap-6 w-[90%] mx-auto mb-6'>
+        <div className='h-[289px] rounded-3xl overflow-hidden'>
+          <Link href={"/casual"} className='block'>
+            <div className='group relative'>
+              <Image
+                src={"/images/Frame 61.png"}
+                width={1000}
+                height={1000}
+                alt='Casual'
+                className='rounded-3xl transition-transform duration-300 group-hover:scale-105 group-hover:shadow-xl'
+              />
+            </div>
+          </Link>
+        </div>
+        <div className='h-[289px] rounded-3xl overflow-hidden'>
+          <Link href={"/formal"} className='block'>
+            <div className='group relative'>
+              <Image
+                src={"/images/Frame 62.png"}
+                width={1000}
+                height={1000}
+                alt='Formal'
+                className='rounded-3xl transition-transform duration-300 group-hover:scale-105 group-hover:shadow-xl'
+              />
+            </div>
+          </Link>
+        </div>
       </div>
 
-      {/* Image Grid */}
-      <div className="grid grid-cols-4 gap-4">
-        {/* First Image */}
-        <div className="col-span-1">
-          <div className="w-[407px] h-[289px] relative ml-14">
-            <Image
-              src="/style1.png" // Replace with your image path
-              alt="Dress Style 1"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-md"
-            />
-          </div>
+      {/* Bottom Row */}
+      <div className='grid grid-cols-[684px_407px] gap-6 w-[90%] mx-auto'>
+        <div className='h-[289px] rounded-3xl overflow-hidden'>
+          <Link href={"/formal-style"} className='block'>
+            <div className='group relative'>
+              <Image
+                src={"/images/Frame 64 (1).png"}
+                width={1000}
+                height={1000}
+                alt='Formal'
+                className='rounded-3xl transition-transform duration-300 group-hover:scale-105 group-hover:shadow-xl'
+              />
+            </div>
+          </Link>
         </div>
-
-        {/* Second Image */}
-        <div className="col-span-3">
-          <div className="w-[684px] h-[289px] relative ml-40">
-            <Image
-              src="/style2.png" // Replace with your image path
-              alt="Dress Style 2"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-md"
-            />
-          </div>
-        </div>
-
-        {/* Third Image */}
-        <div className="col-span-1">
-          <div className="w-[407px] h-[289px] relative ml-14">
-            <Image
-              src="/style3.png" // Replace with your image path
-              alt="Dress Style 3"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-md"
-            />
-          </div>
-        </div>
-
-        {/* Fourth Image */}
-        <div className="col-span-3">
-          <div className="w-[684px] h-[289px] relative ml-40">
-            <Image
-              src="/style4.png" // Replace with your image path
-              alt="Dress Style 4"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-md"
-            />
-          </div>
+        <div className='h-[289px] rounded-3xl overflow-hidden'>
+          <Link href={"/other-style"} className='block'>
+            <div className='group relative'>
+              <Image
+                src={"/images/Frame 63 (1).png"}
+                width={1000}
+                height={1000}
+                alt=''
+                className='rounded-3xl transition-transform duration-300 group-hover:scale-105 group-hover:shadow-xl'
+              />
+            </div>
+          </Link>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DressStyle;
+export default Grid
