@@ -4,7 +4,8 @@ import NewArrival from "./components/newarrival/newarrival";
 import TopSeller from "./components/topsell/topsell";
 
 import Customer from "./components/customer/customer";
-import Grid from "./components/category/category";
+
+import ResponsiveGrid from "./components/category/category";
 
 export default function Home() {
   return (
@@ -14,7 +15,7 @@ export default function Home() {
     
     <NewArrival/>
     <TopSeller/>
-    <Grid/>
+    <ResponsiveGrid/>
     <Customer/>
   </div>
   );
