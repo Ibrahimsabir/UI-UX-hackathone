@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
-const ResponsiveGrid1 = () => {
+const ProductDetailGrid = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   // Detect screen size on mount and on resize
@@ -103,4 +103,4 @@ const ResponsiveGrid1 = () => {
   );
 };
 
-export default ResponsiveGrid1;
+export default ProductDetailGrid;
