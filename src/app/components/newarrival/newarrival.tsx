@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { IoMdStar } from "react-icons/io";
 
 type NewArrData = {
@@ -15,7 +16,7 @@ const NewArrival = () => {
   const card: NewArrData[] = [
     {
       id: 1,
-      image: "/newarr1.png",
+      image: "/image 1.png",
       title: "T-SHIRT WITH TAPE DETAILS",
       price: "$120",
       priceWas: "",
@@ -79,6 +80,7 @@ const NewArrival = () => {
             key={item.id}
             className="bg-white rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col justify-between"
           >
+            <Link href={"/productdetail"} target="_blank" rel="noopener">
             <div className="relative w-full h-[300px] rounded-[20px] overflow-hidden">
               <Image
                 src={item.image}
@@ -88,6 +90,7 @@ const NewArrival = () => {
                 className="rounded-md"
               />
             </div>
+            </Link>
             <h2 className="text-sm font-semibold mt-2">{item.title}</h2>
             <div className="flex items-center gap-2 mt-1">
               <div className="flex text-yellow-500">
