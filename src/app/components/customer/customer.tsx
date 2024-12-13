@@ -24,13 +24,13 @@ export default function Customer() {
         <Card
           text={"Alex K."}
           p={
-            "Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.”
+            "Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions."
           }
         />
         <Card
           text={"James L."}
           p={
-            "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends.”
+            "As someone who&aposs always on the lookout for unique fashion pieces, I&aposm thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends."
           }
         />
       </div>
