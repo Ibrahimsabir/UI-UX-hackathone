@@ -18,7 +18,7 @@ export default function Customer() {
         <Card
           text={"Sarah M."}
           p={
-            `I'm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations.`
+            `I&aposm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I&aposve bought has exceeded my expectations.`
           }
         />
         <Card
