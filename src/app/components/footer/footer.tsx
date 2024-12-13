@@ -2,16 +2,21 @@ import { IoLogoTwitter } from "react-icons/io";
 import { RiFacebookFill } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
 import { IoLogoGithub } from "react-icons/io5";
-import Image from "next/image";
 import NewsLetter from "../newsletter/newsletter";
 import BottomFooter from "../bottomfooter/bottomfooter";
 
 export default function Footer() {
   return (
-    <>
-      <NewsLetter />
-      <div className="bg-[#F0F0F0] w-full py-8 px-4 sm:px-8 lg:px-20">
-        <div className="max-w-[1440px] mx-auto flex flex-col lg:flex-row justify-between gap-8 lg:gap-12">
+    <div className="max-w-full flex flex-col justifly-center items-center">
+      {/* Adjusted Newsletter Section */}
+      <div className="w-full flex justify-start">
+        <div className="ml-2 "> {/* Add margin to move it left */}
+          <NewsLetter />
+        </div>
+      </div>
+
+      <div className="bg-[#F0F0F0] w-full py-8 px-4 sm:px-8 lg:px-20 mt-16 mb-12">
+        <div className="max-w-full mx-auto flex flex-col lg:flex-row justify-between gap-8 lg:gap-12 mt-4 mb-8">
           {/* Company Info Section */}
           <div className="flex flex-col items-start">
             <h3 className="text-4xl font-bold font-satoshi mb-4">SHOP.CO</h3>
@@ -79,6 +84,6 @@ export default function Footer() {
         {/* Divider and Bottom Footer */}
         <BottomFooter />
       </div>
-    </>
+    </div>
   );
 }
