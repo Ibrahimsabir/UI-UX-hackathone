@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { IoMdStar } from "react-icons/io";
+import Link from "next/link";
 
 type TopSellerData = {
   id: number;
@@ -75,6 +76,7 @@ const TopSeller = () => {
       {/* Card Section */}
       <div className="w-[90%] border-b-2 border-gray-200 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 m-auto">
         {card.map((item) => (
+          <Link href={`/productdetail/${item.id}`}>
           <div
             key={item.id}
             className="bg-white rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col justify-between"
@@ -118,11 +120,12 @@ const TopSeller = () => {
               )}
             </div>
           </div>
+          </Link>
         ))}
 
         {/* Centered View All Button Inside Card Section */}
         <div className="col-span-full flex justify-center mt-8 mb-12">
-          <button className="text-lg font-Satoshi font-medium text-black px-16 py-2 border-2 border-gray-200 rounded-full">
+          <button className="text-lg font-Satoshi font-medium text-black px-16 py-2 border-2 border-gray-200 rounded-full hover:bg-black hover:text-white">
             View All
           </button>
         </div>
