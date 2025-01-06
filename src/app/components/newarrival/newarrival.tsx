@@ -1,7 +1,12 @@
+"use client";
+import { useState, useEffect } from "react";
+import "aos/dist/aos.css"; // Import AOS styles
+import Aos from "aos";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoMdStar } from "react-icons/io";
+import { NewArrivals } from "../Allproductsdata/PruductData";
 
 type NewArrData = {
   id: number;
@@ -10,43 +15,23 @@ type NewArrData = {
   price: string;
   priceWas: string;
   rating: number;
+  description: string;
 };
 
 const NewArrival = () => {
-  const card: NewArrData[] = [
-    {
-      id: 1,
-      image: "/image 1.png",
-      title: "T-SHIRT WITH TAPE DETAILS",
-      price: "$120",
-      priceWas: "",
-      rating: 4.5,
-    },
-    {
-      id: 2,
-      image: "/newarr2.png",
-      title: "SKINNY FIT JEANS",
-      price: "$240",
-      priceWas: "$260",
-      rating: 4.5,
-    },
-    {
-      id: 3,
-      image: "/newarr3.png",
-      title: "CHECKERED SHIRT",
-      price: "$180",
-      priceWas: "",
-      rating: 4.5,
-    },
-    {
-      id: 4,
-      image: "/newarr4.png",
-      title: "SLEEVE STRIPED T-SHIRT",
-      price: "$130",
-      priceWas: "$160",
-      rating: 4.7,
-    },
-  ];
+  const card: NewArrData[] = NewArrivals;
+
+  const [visibleProducts, setVisibleProducts] = useState(4); // To manage the number of visible products
+  const [noMoreProducts, setNoMoreProducts] = useState(false); // To show "No more products" message
+
+  useEffect(() => {
+    Aos.init({ duration: 1000 }); // Initialize AOS with duration
+  }, []);
+
+  const handleClick = () => {
+    // Reset AOS so animations are re-triggered
+    Aos.refresh();
+  };
 
   // Function to calculate the discount percentage
   const calculateDiscount = (price: string, priceWas: string) => {
@@ -59,6 +44,16 @@ const NewArrival = () => {
       return Math.round(discount);
     }
     return 0;
+  };
+
+  const handleViewMore = () => {
+    // Load next 3 products
+    if (visibleProducts + 4 <= NewArrivals.length) {
+      setVisibleProducts(visibleProducts + 4);
+    } else {
+      setVisibleProducts(card.length); // Load all remaining products
+      setNoMoreProducts(true); // Show message if no more products
+    }
   };
 
   return (
@@ -75,26 +70,27 @@ const NewArrival = () => {
 
       {/* Card Section */}
       <div className="w-[90%] border-b-2 border-gray-200 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 m-auto">
-        {card.map((item) => (
+        {card.slice(0, visibleProducts).map((item) => (
+                      <Link href={`/testdetail/${item.id}`}  rel="noopener">
           <div
             key={item.id}
             className="bg-white rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col justify-between"
           >
-            <Link href={"/productdetail"} target="_blank" rel="noopener">
-            <div className="relative w-full h-[300px] rounded-[20px] overflow-hidden">
-              <Image
-                src={item.image}
-                alt={item.title}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-md"
-              />
-            </div>
-            </Link>
+
+              <div className="relative w-full h-[300px] rounded-[20px] overflow-hidden">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-md"
+                />
+              </div>
+           
             <h2 className="text-sm font-semibold mt-2">{item.title}</h2>
             <div className="flex items-center gap-2 mt-1">
               <div className="flex text-yellow-500">
-                {Array.from({ length: 5 }).map((_, index) => (
+                {Array.from({ length:5 }).map((_, index) => (
                   <IoMdStar
                     key={index}
                     className={`${
@@ -121,13 +117,28 @@ const NewArrival = () => {
               )}
             </div>
           </div>
+          </Link>
         ))}
 
         {/* Centered View All Button Inside Card Section */}
         <div className="col-span-full flex justify-center mt-8 mb-12">
-          <button className="text-lg font-Satoshi font-medium text-black px-16 py-2 border-2 border-gray-200  hover:bg-black hover:text-white rounded-full">
-            View All
-          </button>
+          {noMoreProducts && (
+            <div className="text-center font-bold mt-10 text-[25px] text-red-600">
+              No more products to show
+            </div>
+          )}
+
+          {/* View More Button */}
+          {!noMoreProducts && (
+            <div className="flex justify-center py-10">
+              <button
+                onClick={handleViewMore}
+                className="text-lg font-Satoshi font-medium text-black px-16 py-2 border-2 border-gray-200  hover:bg-black hover:text-white rounded-full"
+              >
+                View More Products
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

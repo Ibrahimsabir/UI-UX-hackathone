@@ -1,0 +1,202 @@
+"use client";
+import Link from "next/link";
+import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
+import React, { useState, useEffect } from "react";
+import { ProductsData } from "@/app/components/Allproductsdata/PruductData";
+import { AiOutlineStar, AiFillStar, AiOutlineHeart } from "react-icons/ai";
+import { ProductDetailComponent } from "@/app/components/productdetail/productcategory";
+import Customer from "@/app/components/customer/customer";
+import YouMayLike from "@/app/components/productdetail/productyoulike";
+
+export interface Product {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  rating: number;
+  price: string;
+  priceWas: string;
+  color: string;
+  aosDelay: number;
+}
+
+const ProductDetail = ({ params }: { params: { id: number } }) => {
+  const [product, setProduct] = useState<Product | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const { id } = params;
+  console.log("ID from useRouter:", id);
+
+  useEffect(() => {
+    if (id) {
+      const product = ProductsData.find((item) => item.id === Number(id));
+      setProduct(product || null);
+    }
+  }, [id]);
+
+  const addtocarthandler = () => {
+    toast.success("Item added to cart!", {
+      position: "top-center",
+    });
+  };
+
+  const fallbackImage = "/images/default-product.jpg";
+
+  return (
+    <div className="max-w-full h-full flex-grow justify-start items-center">
+      <ProductDetailComponent />
+      <section className="text-gray-600 shadow-lg body-font overflow-hidden  ">
+        <Toaster />
+        <div className="container px-5 py-24 mx-auto">
+          <div className="lg:w-4/5 mx-auto flex flex-col sm:flex-row">
+            <div className="w-full lg:w-[530px] h-auto rounded overflow-hidden">
+              <div className="w-full max-w-[1240px] mx-auto py-8">
+                {isMobile ? (
+                  // Mobile Layout
+                  <div>
+                    {/* Large Image */}
+                    <div className="w-full h-[350px] rounded overflow-hidden mb-4">
+                      <Link href="/large-image">
+                        <div className="group relative">
+                          <Image
+                            src={product?.image || fallbackImage}
+                            width={1000}
+                            height={1000}
+                            alt="Large Image"
+                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:shadow-lg"
+                          />
+                        </div>
+                      </Link>
+                    </div>
+
+                    {/* Row of Smaller Images */}
+                    <div className="grid grid-cols-3 gap-4">
+                      {["/image 2.png", "/image 5.png", "/image 6.png"].map((img, idx) => (
+                        <div key={idx} className="w-full h-[162px] rounded overflow-hidden">
+                          <Link href={`/small-image-${idx + 1}`}>
+                            <div className="group relative">
+                              <Image
+                                src={img}
+                                width={1000}
+                                height={1000}
+                                alt={`Small Image ${idx + 1}`}
+                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:shadow-lg"
+                              />
+                            </div>
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  // Desktop Layout
+                  <div className="grid grid-cols-[152px_auto] gap-4">
+                    {/* First Column */}
+                    <div className="grid grid-rows-3 gap-4">
+                      {["/image 2.png", "/image 5.png", "/image 6.png"].map((img, idx) => (
+                        <div key={idx} className="w-[152px] h-[162px] rounded overflow-hidden">
+                          <Link href={`/small-image-${idx + 1}`}>
+                            <div className="group relative">
+                              <Image
+                                src={img}
+                                width={152}
+                                height={152}
+                                alt={`Small Image ${idx + 1}`}
+                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:shadow-lg"
+                              />
+                            </div>
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Second Column (Large Image) */}
+                    <div className="w-full h-full rounded overflow-hidden">
+                      <Link href="">
+                        <div className="group relative">
+                          <Image
+                            src={product?.image || fallbackImage}
+                            width={1000}
+                            height={1000}
+                            alt="Large Image"
+                            className="w-full h-[530px] object-cover transition-transform duration-300 group-hover:scale-105 group-hover:shadow-lg"
+                          />
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
+                {product ? product.title : "Loading..."}
+              </h1>
+              <div className="flex mb-4">
+                <span className="flex items-center">
+                  {Array(Math.floor(product?.rating || 0))
+                    .fill("")
+                    .map((_, idx) => (
+                      <AiFillStar
+                        key={idx}
+                        className="w-4 h-4 text-yellow-400"
+                      />
+                    ))}
+                  {Array(5 - Math.ceil(product?.rating || 0))
+                    .fill("")
+                    .map((_, idx) => (
+                      <AiOutlineStar
+                        key={idx}
+                        className="w-4 h-4 text-yellow-400"
+                      />
+                    ))}
+                </span>
+              </div>
+              <p className="leading-relaxed">{product?.description}</p>
+              <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
+                <div className="flex">
+                  <span className="mr-3">Color</span>
+                  {/* Render colors dynamically */}
+                  <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none" />
+                  <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none" />
+                  <button className="border-2 border-gray-300 ml-1 bg-indigo-500 rounded-full w-6 h-6 focus:outline-none" />
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="title-font font-medium text-2xl text-gray-900">
+                  {product?.price || "0.00"}
+                </span>
+                <div className="flex justify-end items-center">
+                  <button
+                    onClick={addtocarthandler}
+                    className="w-auto text-sm md:text-lg bg-[#f7d1a6] font-medium py-1 px-2 text-white rounded-lg hover:shadow-lg"
+                  >
+                    Add To Cart
+                  </button>
+                  <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+                    <AiOutlineHeart className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <Customer />
+      <YouMayLike />
+    </div>
+  );
+};
+
+export default ProductDetail;

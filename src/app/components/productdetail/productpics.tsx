@@ -23,6 +23,7 @@ const ProductDetailGrid = () => {
   }, []);
 
   return (
+    <div className='flex flex-col '>
     <div className="w-full max-w-[1240px] mx-auto py-8">
       {isMobile ? (
         // Mobile Layout
@@ -99,6 +100,7 @@ const ProductDetailGrid = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };

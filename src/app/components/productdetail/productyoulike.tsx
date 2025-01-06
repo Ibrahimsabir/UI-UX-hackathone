@@ -1,6 +1,10 @@
+"use client";
+import { useState } from "react";
+import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import { IoMdStar } from "react-icons/io";
+import { ProductsYouMayLike } from "../Allproductsdata/PruductData";
 
 type TopSellerData = {
   id: number;
@@ -12,53 +16,30 @@ type TopSellerData = {
 };
 
 const YouMayLike = () => {
-  const card: TopSellerData[] = [
-   
-    {
-      id: 2,
-      image: "/maylike2.png",
-      title: "Polo with Contrast Trims",
-      price: "$212",
-      priceWas: "$242",
-      rating: 4.0,
-    },
-    {
-      id: 3,
-      image: "/maylike3.png",
-      title: "Gradient Graphic T-shirt",
-      price: "$145",
-      priceWas: "",
-      rating: 3.5,
-    },
-    {
-        id: 1,
-        image: "/maylike1.png",
-        title: "Polo with Tipping Details",
-        price: "$180",
-        priceWas: "",
-        rating: 4.5,
-      },
-    {
-      id: 4,
-      image: "/maylike4.png",
-      title: "Black Striped T-shirt",
-      price: "$120",
-      priceWas: "$160",
-      rating: 5.0,
-    },
-  ];
+  const card: TopSellerData[] = ProductsYouMayLike;
+  const [visibleProducts, setVisibleProducts] = useState(4); // Manage the number of visible products
+  const [noMoreProducts, setNoMoreProducts] = useState(false); // To show "No more products" message
 
   // Function to calculate the discount percentage
   const calculateDiscount = (price: string, priceWas: string) => {
     if (priceWas) {
       const discount =
-        ((parseFloat(priceWas.replace("$", "")) -
-          parseFloat(price.replace("$", ""))) /
+        ((parseFloat(priceWas.replace("$", "")) - parseFloat(price.replace("$", ""))) /
           parseFloat(priceWas.replace("$", ""))) *
         100;
       return Math.round(discount);
     }
     return 0;
+  };
+
+  const handleViewMore = () => {
+    // If there are fewer than 4 products left, load all remaining products
+    if (visibleProducts + 4 <= card.length) {
+      setVisibleProducts(visibleProducts + 4);
+    } else {
+      setVisibleProducts(card.length); // Load all remaining products
+      setNoMoreProducts(true); // Show "No more products" message
+    }
   };
 
   return (
@@ -75,7 +56,9 @@ const YouMayLike = () => {
 
       {/* Card Section */}
       <div className="w-[90%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 m-auto">
-        {card.map((item) => (
+        {card.slice(0, visibleProducts).map((item) => (
+     <Link href={`/testdetail/${item.id}`} rel="noopener">
+
           <div
             key={item.id}
             className="bg-white rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col justify-between"
@@ -119,10 +102,28 @@ const YouMayLike = () => {
               )}
             </div>
           </div>
+          </Link>
         ))}
 
-        {/* Centered View All Button Inside Card Section */}
-        
+        {/* View More Button */}
+        <div className="col-span-full flex justify-center mt-8 mb-12">
+          {noMoreProducts && (
+            <div className="text-center font-bold mt-10 text-[25px] text-red-600">
+              No more products to show
+            </div>
+          )}
+
+          {!noMoreProducts && (
+            <div className="col-span-full flex justify-center items-center mt-8 mb-12">
+              <button
+                onClick={handleViewMore}
+                className="text-lg font-medium text-black px-16 py-2 border-2 border-gray-200 hover:bg-black hover:text-white rounded-full"
+              >
+                View More Products
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
