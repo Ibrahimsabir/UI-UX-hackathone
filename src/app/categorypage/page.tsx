@@ -19,4 +19,4 @@ const CategoryPage = () => {
     </div>
   )
 }
-export default CategoryPage
+export default CategoryPage;

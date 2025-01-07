@@ -1,9 +1,6 @@
-import ProductsDetail from "../../components/productdetail/productcart";
 import { ProductDetailComponent } from "../../components/productdetail/productcategory";
 import Customer from "../../components/productdetail/productreviews";
 import YouMayLike from "../../components/productdetail/productyoulike";
-import { ProductsData } from "@/app/components/Allproductsdata/PruductData";
-import { useParams } from "next/navigation";
 
 export interface Product {
   id: number;

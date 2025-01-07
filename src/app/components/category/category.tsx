@@ -33,9 +33,8 @@ const ResponsiveGrid = () => {
           {[{ href: '/casual', img: '/images/mobilescreen/Frame 105.png', alt: 'Casual' },
             { href: '/formal', img: '/images/mobilescreen/Frame 106.png', alt: 'Formal' },
             { href: '/formal-style', img: '/images/mobilescreen/Frame 107.png', alt: 'Formal Style' },
-            { href: '/other-style', img: '/images/mobilescreen/Frame 108.png', alt: 'Other Style' }]
-            .map(({ href, img, alt }, index) => (
-              <div key={index} className="h-[289px] rounded-3xl overflow-hidden">
+            { href: '/other-style', img: '/images/mobilescreen/Frame 108.png', alt: 'Other Style' }].map(({ href, img, alt }, index) => (
+              <div key={index} className="h-[289px] rounded-3xl overflow-hidden group">
                 <Link href={href} className="block">
                   <Image
                     src={img}
@@ -53,8 +52,8 @@ const ResponsiveGrid = () => {
         <>
           {/* Top Row */}
           <div className="grid grid-cols-[407px_684px] gap-6 w-[90%] mx-auto mb-6">
-            <div className="h-[289px] rounded-3xl overflow-hidden">
-              <Link href="/casual" className="block">
+            <div className="h-[289px] rounded-3xl overflow-hidden group">
+              <Link href={`/categorypage`} className="block">
                 <Image
                   src="/images/Frame 61.png"
                   width={1000}
@@ -64,8 +63,8 @@ const ResponsiveGrid = () => {
                 />
               </Link>
             </div>
-            <div className="h-[289px] rounded-3xl overflow-hidden">
-              <Link href="/formal" className="block">
+            <div className="h-[289px] rounded-3xl overflow-hidden group">
+              <Link href={`/categorypage`} className="block">
                 <Image
                   src="/images/Frame 62.png"
                   width={1000}
@@ -79,8 +78,8 @@ const ResponsiveGrid = () => {
 
           {/* Bottom Row */}
           <div className="grid grid-cols-[684px_407px] gap-6 w-[90%] mx-auto">
-            <div className="h-[289px] rounded-3xl overflow-hidden">
-              <Link href="/formal-style" className="block">
+            <div className="h-[289px] rounded-3xl overflow-hidden group">
+              <Link href={`/categorypage`} className="block">
                 <Image
                   src="/images/Frame 64 (1).png"
                   width={1000}
@@ -90,8 +89,8 @@ const ResponsiveGrid = () => {
                 />
               </Link>
             </div>
-            <div className="h-[289px] rounded-3xl overflow-hidden">
-              <Link href="/other-style" className="block">
+            <div className="h-[289px] rounded-3xl overflow-hidden group">
+              <Link href={`/categorypage`} className="block">
                 <Image
                   src="/images/Frame 63 (1).png"
                   width={1000}

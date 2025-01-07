@@ -97,7 +97,7 @@ const CartCheckOut = () => {
                 alt="1st Item Selected"
                 />
                 <div className='flex flex-col justify-start items-center p-2 m-auto'>
-                    <h1 className='text-xl font-semibold font-[Santoshi]'>Gradient Graphic T-shirt</h1>
+                    <h1 className='text-xl font-semibold font-[Santoshi]'>{}</h1>
                     <h2 className='text-xl font-semibold font-[Santoshi]'>Size: Large</h2>
                     <h2 className='text-xl font-semibold font-[Santoshi]'>Color: Blue</h2>
                   <div className='flex justify-between items-center mx-auto'>

@@ -12,7 +12,6 @@ export default function Home() {
   <div className="max-w-full h-full flex-grow justify-start items-center">
     <Hero/>
     <LogoSection/>
-    
     <NewArrival/>
     <TopSeller/>
     <ResponsiveGrid/>

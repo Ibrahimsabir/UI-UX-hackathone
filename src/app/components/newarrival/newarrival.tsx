@@ -15,7 +15,7 @@ type NewArrData = {
   price: string;
   priceWas: string;
   rating: number;
-  description: string;
+ 
 };
 
 const NewArrival = () => {
@@ -28,10 +28,7 @@ const NewArrival = () => {
     Aos.init({ duration: 1000 }); // Initialize AOS with duration
   }, []);
 
-  const handleClick = () => {
-    // Reset AOS so animations are re-triggered
-    Aos.refresh();
-  };
+
 
   // Function to calculate the discount percentage
   const calculateDiscount = (price: string, priceWas: string) => {
@@ -71,7 +68,7 @@ const NewArrival = () => {
       {/* Card Section */}
       <div className="w-[90%] border-b-2 border-gray-200 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 m-auto">
         {card.slice(0, visibleProducts).map((item) => (
-                      <Link href={`/testdetail/${item.id}`}  rel="noopener">
+    <Link href={`/testdetail/${item.id}`} key={item.id} rel="noopener">
           <div
             key={item.id}
             className="bg-white rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col justify-between"
