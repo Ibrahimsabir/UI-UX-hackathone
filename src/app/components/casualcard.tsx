@@ -1,8 +1,10 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { IoMdStar } from "react-icons/io";
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { FaArrowRightLong } from "react-icons/fa6";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { Casuals } from "./Allproductsdata/PruductData";
 
 type CasualCardData = {
   id: number;
@@ -14,87 +16,23 @@ type CasualCardData = {
 };
 
 const CasualCard = () => {
-  const card: CasualCardData[] = [
-    {
-      id: 1,
-      image: "/topsell1.png",
-      title: "VERTICAL STRIPED SHIRT",
-      price: "$212",
-      priceWas: "$232",
-      rating: 4.7,
-    },
-    {
-      id: 2,
-      image: "/topsell2.png",
-      title: "COURAGE GRAPHIC T-SHIRT",
-      price: "$145",
-      priceWas: "",
-      rating: 4.0,
-    },
-    {
-      id: 3,
-      image: "/topsell3.png",
-      title: "LOOSE FIT BERMUDA SHORTS",
-      price: "$80",
-      priceWas: "",
-      rating: 3.5,
-    },
-    {
-      id: 4,
-      image: "/topsell4.png",
-      title: "FADED SKINNY JEANS",
-      price: "$210",
-      priceWas: "",
-      rating: 4.5,
-    },
-    {
-      id: 5,
-      image: "/maylike1.png",
-      title: "PLAID CHECKERED SHIRT",
-      price: "$190",
-      priceWas: "$250",
-      rating: 4.8,
-    },
-    {
-      id: 6,
-      image: "/maylike2.png",
-      title: "HIGH-WAISTED TROUSERS",
-      price: "$170",
-      priceWas: "",
-      rating: 4.3,
-    },
-    {
-      id: 7,
-      image: "/maylike3.png",
-      title: "LIGHTWEIGHT HOODED JACKET",
-      price: "$230",
-      priceWas: "$280",
-      rating: 4.6,
-    },
-    {
-      id: 8,
-      image: "/newarr3.png",
-      title: "COMFY SLIM-FIT SWEATPANTS",
-      price: "$100",
-      priceWas: "",
-      rating: 4.2,
-    },
-    {
-      id: 9,
-      image: "/image 5.png",
-      title: "DISTRESSED DENIM JACKET",
-      price: "$260",
-      priceWas: "$300",
-      rating: 4.7,
-    },
-  ];
+  const card: CasualCardData[] = Casuals;
+    
+
+  // Pagination setup
+  const [currentPage, setCurrentPage] = useState(1);
+  const cardsPerPage = 9; // Number of cards per page
+  const totalPages = Math.ceil(card.length / cardsPerPage); // Total number of pages
+
+  // Get the cards for the current page
+  const startIndex = (currentPage - 1) * cardsPerPage;
+  const currentCards = card.slice(startIndex, startIndex + cardsPerPage);
 
   // Function to calculate the discount percentage
   const calculateDiscount = (price: string, priceWas: string) => {
     if (priceWas) {
       const discount =
-        ((parseFloat(priceWas.replace("$", "")) -
-          parseFloat(price.replace("$", ""))) /
+        ((parseFloat(priceWas.replace("$", "")) - parseFloat(price.replace("$", ""))) /
           parseFloat(priceWas.replace("$", ""))) *
         100;
       return Math.round(discount);
@@ -102,79 +40,88 @@ const CasualCard = () => {
     return 0;
   };
 
+  // Next Page Handler
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1); // Increment page number
+    }
+  };
+
+  // Previous Page Handler
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1); // Decrement page number
+    }
+  };
+
   return (
-    <div>
-      {/* Heading */}
-      <div className="text-center mt-12 mb-6">
-        <h1
-          className="font-IntegralCF text-4xl font-extrabold leading-[57.6px] text-start"
-          style={{ textUnderlinePosition: "from-font" }}
-        >
-          Casual
-        </h1>
-      </div>
-
-      {/* Card Section */}
-      <div className="w-[90%] border-b-2 border-gray-200 grid grid-cols-3 gap-6 m-auto">
-        {card.map((item) => (
-          <div
-            key={item.id}
-            className="bg-white rounded-lg p-4 hover:shadow-lg transition-shadow flex flex-col justify-between"
-          >
-            <div className="relative w-full h-[300px] rounded-[20px] overflow-hidden">
-              <Image
-                src={item.image}
-                alt={item.title}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-md"
-              />
-            </div>
-            <h2 className="text-sm font-semibold mt-2">{item.title}</h2>
-            <div className="flex items-center gap-2 mt-1">
-              <div className="flex text-yellow-500">
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <IoMdStar
-                    key={index}
-                    className={`${
-                      index < Math.round(item.rating)
-                        ? "text-yellow-500"
-                        : "text-gray-300"
-                    } text-lg`}
-                  />
-                ))}
-              </div>
-              <span className="text-sm">{item.rating}/5</span>
-            </div>
-            <div className="mt-1 flex items-center gap-2">
-              <span className="text-lg font-bold text-gray-800">
-                {item.price}
-              </span>
-              {item.priceWas && (
-                <>
-                  <span className="text-sm line-through text-gray-500">
-                    {item.priceWas}
-                  </span>
-                  <button className="bg-pink-100 text-red-600 text-xs py-1 px-2 rounded-full">
-                    {calculateDiscount(item.price, item.priceWas)}% OFF
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* View All Button */}
-      <div className="col-span-full flex justify-between items-center px-12 mt-8 mb-12">
-        <button className="flex gap-4 justify-between items-center text-lg font-Satoshi font-medium text-black px-16 py-2 border-2 border-gray-200 rounded-xl">
-        <FaArrowLeftLong/>Previous
-        </button>
-        <button className="flex gap-4 justify-between items-center text-lg font-Satoshi font-medium text-black px-16 py-2 border-2 border-gray-200 rounded-xl">
-          Next<FaArrowRightLong/>
-        </button>
-      </div>
+    <div className="min-h-screen pb-12"> {/* Make sure content takes at least full screen */}
+    <div className="text-center mt-12 mb-4">
+      <h1 className="font-IntegralCF text-4xl font-extrabold leading-[57.6px] text-start">
+        Casual
+      </h1>
     </div>
+  
+    <div className="w-[90%] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+      {currentCards.map((item) => (
+        <Link href={`/testdetail/${item.id}`}>
+        <div key={item.id} className="bg-white rounded-lg p-4 hover:scale-105 hover:shadow-xl transition-all duration-300">
+          
+          <div className="relative w-full h-[300px] rounded-md overflow-hidden">
+            <Image src={item.image} alt={item.title} layout="fill" objectFit="cover" className="rounded-md" />
+          </div>
+          <h2 className="text-sm font-semibold mt-2">{item.title}</h2>
+          <div className="flex items-center gap-2 mt-1">
+            <div className="flex text-yellow-500">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <IoMdStar key={index} className={`${index < Math.round(item.rating) ? "text-yellow-500" : "text-gray-300"} text-lg`} />
+              ))}
+            </div>
+            <span className="text-sm">{item.rating}/5</span>
+          </div>
+          <div className="mt-2 flex items-center gap-2">
+            <span className="text-lg font-bold text-gray-800">{item.price}</span>
+            {item.priceWas && (
+              <>
+                <span className="text-sm line-through text-gray-500">{item.priceWas}</span>
+                <button className="bg-pink-100 text-red-600 text-xs py-1 px-2 rounded-full">
+                  {calculateDiscount(item.price, item.priceWas)}% OFF
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+        </Link>
+      ))}
+    </div>
+  
+    <div className="col-span-full flex justify-center md:justify-between items-center px-12 mt-8 mb-12">
+      {/* Previous Button */}
+      <button
+        onClick={goToPreviousPage}
+        disabled={currentPage === 1}
+        className={`flex gap-4 justify-between items-center text-lg font-Satoshi font-medium text-black px-16 py-2 border-2 border-gray-200 rounded-xl ${currentPage === 1 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-gray-100"}`}
+      >
+        <FaArrowLeft />
+        Previous
+      </button>
+  
+      {/* Page Number Display */}
+      <div className="flex items-center justify-center text-lg">
+        Page {currentPage} of {totalPages}
+      </div>
+  
+      {/* Next Button */}
+      <button
+        onClick={goToNextPage}
+        disabled={currentPage === totalPages}
+        className={`flex gap-4 justify-between items-center text-lg font-Satoshi font-medium text-black px-16 py-2 border-2 border-gray-200 rounded-xl ${currentPage === totalPages ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-gray-100"}`}
+      >
+        Next
+        <FaArrowRight />
+      </button>
+    </div>
+  </div>
   );
 };
 

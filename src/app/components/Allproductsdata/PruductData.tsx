@@ -99,7 +99,7 @@ export const ProductsData = [
       title: "Formal Shirt",
       description: "Perfectly tailored formal shirt for office wear.",
       image: "/images/men-clothing/full-sleeve-shirt.png",
-      category: "Formal",
+      category: "Casual",
       rating: 4.4,
       price: "$34.99",
       priceWas: "",
