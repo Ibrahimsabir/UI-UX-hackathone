@@ -11,16 +11,14 @@ import YouMayLike from "@/app/components/productdetail/productyoulike";
 
 export interface Product {
   id: number;
-  title: string;
-  description: string;
   image: string;
-  category: string;
-  rating: number;
+  title: string;
   price: string;
   priceWas: string;
-  color: string;
-  aosDelay: number;
-}
+  rating: number;
+  description?: string;
+ 
+};
 
 const ProductDetail = ({ params }: { params: { id: number } }) => {
   const [product, setProduct] = useState<Product | null>(null);
@@ -39,11 +37,12 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
   console.log("ID from useRouter:", id);
 
   useEffect(() => {
+    // Find the product by id
     if (id) {
       const product = ProductsData.find((item) => item.id === Number(id));
       setProduct(product || null);
     }
-  }, [id]);
+  }, [id]); // Add id to the dependency array
 
   const addtocarthandler = () => {
     toast.success("Item added to cart!", {
@@ -56,7 +55,7 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
   return (
     <div className="max-w-full h-full flex-grow justify-start items-center">
       <ProductDetailComponent />
-      <section className="text-gray-600 shadow-lg body-font overflow-hidden  ">
+      <section className="text-gray-600 shadow-lg body-font overflow-hidden">
         <Toaster />
         <div className="container px-5 py-24 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-col sm:flex-row">
@@ -110,8 +109,8 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
                             <div className="group relative">
                               <Image
                                 src={img}
-                                width={152}
-                                height={152}
+                                width={1000}
+                                height={1000}
                                 alt={`Small Image ${idx + 1}`}
                                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:shadow-lg"
                               />
@@ -148,18 +147,12 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
                   {Array(Math.floor(product?.rating || 0))
                     .fill("")
                     .map((_, idx) => (
-                      <AiFillStar
-                        key={idx}
-                        className="w-4 h-4 text-yellow-400"
-                      />
+                      <AiFillStar key={idx} className="w-4 h-4 text-yellow-400" />
                     ))}
                   {Array(5 - Math.ceil(product?.rating || 0))
                     .fill("")
                     .map((_, idx) => (
-                      <AiOutlineStar
-                        key={idx}
-                        className="w-4 h-4 text-yellow-400"
-                      />
+                      <AiOutlineStar key={idx} className="w-4 h-4 text-yellow-400" />
                     ))}
                 </span>
               </div>
