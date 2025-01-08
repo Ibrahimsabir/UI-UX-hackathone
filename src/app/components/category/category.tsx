@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -51,7 +51,7 @@ const ResponsiveGrid = () => {
         // Desktop View (Two Rows)
         <>
           {/* Top Row */}
-          <div className="grid grid-cols-[407px_684px] gap-6 w-[90%] mx-auto mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[407px_684px] gap-6 w-[90%] mx-auto mb-6">
             <div className="h-[289px] rounded-3xl overflow-hidden group">
               <Link href={`/categorypage`} className="block">
                 <Image
@@ -77,7 +77,7 @@ const ResponsiveGrid = () => {
           </div>
 
           {/* Bottom Row */}
-          <div className="grid grid-cols-[684px_407px] gap-6 w-[90%] mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[684px_407px] gap-6 w-[90%] mx-auto">
             <div className="h-[289px] rounded-3xl overflow-hidden group">
               <Link href={`/categorypage`} className="block">
                 <Image

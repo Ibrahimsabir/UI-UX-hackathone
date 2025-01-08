@@ -12,7 +12,6 @@ type TopSellerData = {
   price: string;
   priceWas: string;
   rating: number;
- 
 };
 
 const TopSeller = () => {
@@ -59,10 +58,11 @@ const TopSeller = () => {
       {/* Card Section */}
       <div className="w-[90%] border-b-2 border-gray-200 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 m-auto">
         {card.slice(0, visibleProducts).map((item) => (
-           <Link href={`/testdetail/${item.id}`} key={item.id}
-            rel="noopener">
-            <div key={item.id}
-            className="bg-white rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col justify-between">
+          <Link href={`/testdetail/${item.id}`} key={item.id} rel="noopener">
+            <div
+              key={item.id}
+              className="bg-white rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col justify-between"
+            >
               <div className="relative w-full h-[300px] rounded-[20px] overflow-hidden">
                 <Image
                   src={item.image}
@@ -75,17 +75,17 @@ const TopSeller = () => {
               <h2 className="text-sm font-semibold mt-2">{item.title}</h2>
               <div className="flex items-center gap-2 mt-1">
                 <div className="flex text-yellow-500">
-                               {Array.from({ length: 5 }).map((_, index) => (
-                                 <IoMdStar
-                                   key={index}
-                                   className={`${
-                                     index < Math.round(item.rating)
-                                       ? "text-yellow-500"
-                                       : "text-gray-300"
-                                   } text-lg`}
-                                 />
-                               ))}
-                             </div>
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <IoMdStar
+                      key={index}
+                      className={`${
+                        index < Math.round(item.rating)
+                          ? "text-yellow-500"
+                          : "text-gray-300"
+                      } text-lg`}
+                    />
+                  ))}
+                </div>
                 <span className="text-sm">{item.rating}/5</span>
               </div>
               <div className="mt-1 flex items-center gap-2">
@@ -105,6 +105,7 @@ const TopSeller = () => {
           </Link>
         ))}
 
+        {/* Centered View All Button Inside Card Section */}
         <div className="col-span-full flex justify-center mt-8 mb-12">
           {noMoreProducts && (
             <div className="text-center font-bold mt-10 text-[25px] text-red-600">
@@ -114,10 +115,10 @@ const TopSeller = () => {
 
           {/* View More Button */}
           {!noMoreProducts && (
-            <div className="col-span-full flex justify-center items-center mt-8 mb-12">
+            <div className="flex justify-center items-center w-full mt-8 mb-12">
               <button
                 onClick={handleViewMore}
-                className="text-lg font-medium text-black px-16 py-2 border-2 border-gray-200  hover:bg-black hover:text-white rounded-full"
+                className="text-lg font-medium text-black px-8 py-2 border-2 border-gray-200 hover:bg-black hover:text-white rounded-full w-[60%] sm:w-[40%] md:w-[30%] lg:w-[20%]"
               >
                 View More Products
               </button>

@@ -15,7 +15,6 @@ type NewArrData = {
   price: string;
   priceWas: string;
   rating: number;
- 
 };
 
 const NewArrival = () => {
@@ -27,8 +26,6 @@ const NewArrival = () => {
   useEffect(() => {
     Aos.init({ duration: 1000 }); // Initialize AOS with duration
   }, []);
-
-
 
   // Function to calculate the discount percentage
   const calculateDiscount = (price: string, priceWas: string) => {
@@ -44,7 +41,7 @@ const NewArrival = () => {
   };
 
   const handleViewMore = () => {
-    // Load next 3 products
+    // Load next 4 products
     if (visibleProducts + 4 <= NewArrivals.length) {
       setVisibleProducts(visibleProducts + 4);
     } else {
@@ -68,12 +65,11 @@ const NewArrival = () => {
       {/* Card Section */}
       <div className="w-[90%] border-b-2 border-gray-200 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 m-auto">
         {card.slice(0, visibleProducts).map((item) => (
-    <Link href={`/testdetail/${item.id}`} key={item.id} rel="noopener">
-          <div
-            key={item.id}
-            className="bg-white rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col justify-between"
-          >
-
+          <Link href={`/testdetail/${item.id}`} key={item.id} rel="noopener">
+            <div
+              key={item.id}
+              className="bg-white rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col justify-between"
+            >
               <div className="relative w-full h-[300px] rounded-[20px] overflow-hidden">
                 <Image
                   src={item.image}
@@ -83,37 +79,37 @@ const NewArrival = () => {
                   className="rounded-md"
                 />
               </div>
-           
-            <h2 className="text-sm font-semibold mt-2">{item.title}</h2>
-            <div className="flex items-center gap-2 mt-1">
-              <div className="flex text-yellow-500">
-                {Array.from({ length:5 }).map((_, index) => (
-                  <IoMdStar
-                    key={index}
-                    className={`${
-                      index < Math.round(item.rating)
-                        ? "text-yellow-500"
-                        : "text-gray-300"
-                    } text-lg`}
-                  />
-                ))}
+
+              <h2 className="text-sm font-semibold mt-2">{item.title}</h2>
+              <div className="flex items-center gap-2 mt-1">
+                <div className="flex text-yellow-500">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <IoMdStar
+                      key={index}
+                      className={`${
+                        index < Math.round(item.rating)
+                          ? "text-yellow-500"
+                          : "text-gray-300"
+                      } text-lg`}
+                    />
+                  ))}
+                </div>
+                <span className="text-sm">{item.rating}/5</span>
               </div>
-              <span className="text-sm">{item.rating}/5</span>
+              <div className="mt-1 flex items-center gap-2">
+                <span className="text-lg font-bold text-gray-800">{item.price}</span>
+                {item.priceWas && (
+                  <>
+                    <span className="text-sm line-through text-gray-500">
+                      {item.priceWas}
+                    </span>
+                    <button className="bg-pink-100 text-red-600 text-xs py-1 px-2 rounded-full">
+                      {calculateDiscount(item.price, item.priceWas)}% OFF
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
-            <div className="mt-1 flex items-center gap-2">
-              <span className="text-lg font-bold text-gray-800">{item.price}</span>
-              {item.priceWas && (
-                <>
-                  <span className="text-sm line-through text-gray-500">
-                    {item.priceWas}
-                  </span>
-                  <button className="bg-pink-100 text-red-600 text-xs py-1 px-2 rounded-full">
-                    {calculateDiscount(item.price, item.priceWas)}% OFF
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
           </Link>
         ))}
 
@@ -127,10 +123,10 @@ const NewArrival = () => {
 
           {/* View More Button */}
           {!noMoreProducts && (
-            <div className="flex justify-center py-10">
+            <div className="flex justify-center py-10 w-full">
               <button
                 onClick={handleViewMore}
-                className="text-lg font-Satoshi font-medium text-black px-16 py-2 border-2 border-gray-200  hover:bg-black hover:text-white rounded-full"
+                className="text-lg font-Satoshi font-medium text-black px-8 py-2 border-2 border-gray-200 hover:bg-black hover:text-white rounded-full w-[60%] sm:w-[40%] md:w-[30%] lg:w-[20%]"
               >
                 View More Products
               </button>
