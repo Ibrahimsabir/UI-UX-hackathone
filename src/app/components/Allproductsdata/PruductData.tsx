@@ -37,6 +37,7 @@ export const ProductsData = [
       id: 4,
       image: "/newarr4.png",
       title: "SLEEVE STRIPED T-SHIRT",
+      category: "Gym",
       price: "$130",
       priceWas: "$160",
       rating: 4.7,
@@ -49,6 +50,7 @@ export const ProductsData = [
       image: "/topsell1.png",
       title: "VERTICAL STRIPED SHIRT",
       price: "$212",
+      category: "Formal",
       priceWas: "$232",
       rating: 4.7,
       description: "Trendy vertical striped shirt for all seasons.",
@@ -59,6 +61,7 @@ export const ProductsData = [
       id: 6,
       image: "/topsell2.png",
       title: "COURAGE GRAPHIC T-SHIRT",
+      category: "Casual",
       price: "$145",
       priceWas: "",
       rating: 4.0,
@@ -68,7 +71,7 @@ export const ProductsData = [
     },
     {
       id: 7,
-      category: "Women's Watches",
+      category: "Party",
       image: "/images/accessories/leather-belt2.jpg",
       title: "Women's Luxury Watch",
       price: "$119.99",
@@ -81,7 +84,7 @@ export const ProductsData = [
     },
     {
       id: 8,
-      category: "T-Shirts",
+      category: "Gym",
       image: "/images/men-clothing/t-shirts-2 (4).png",
       title: "Casual T-Shirt",
       price: "$12.99",
@@ -96,7 +99,7 @@ export const ProductsData = [
       title: "Formal Shirt",
       description: "Perfectly tailored formal shirt for office wear.",
       image: "/images/men-clothing/full-sleeve-shirt.png",
-      category: "Fullsleeve Shirts",
+      category: "Formal",
       rating: 4.4,
       price: "$34.99",
       priceWas: "",
@@ -108,7 +111,7 @@ export const ProductsData = [
       title: "Classic Denim Short",
       description: "Timeless denim shorts for all seasons.",
       image: "/images/men-clothing/denim-bottom (3).png",
-      category: "Bottom Denim",
+      category: "Casual",
       rating: 4.3,
       price: "$59.99",
       priceWas: "$79.99",
@@ -120,7 +123,7 @@ export const ProductsData = [
         title: "Sports Watch",
         description: "Durable sports watch for outdoor enthusiasts.",
         image: "/images/accessories/wallet.jpg",
-        category: "Accessories",
+        category: "Gym",
         rating: 4.9,
         price: "$89.99",
         priceWas: "$109.99",
@@ -168,7 +171,7 @@ export const ProductsData = [
         title: "Summer Dress",
         description: "Light and airy summer dress for warm days.",
         image: "/images/men-clothing/t-shirts-1 (3).png",
-        category: "Women's Clothing",
+        category: "Gym",
         rating: 4.7,
         price: "$34.99",
         priceWas: "$39.99",
@@ -216,7 +219,7 @@ export const ProductsData = [
         title: "Hoodie",
         description: "Cozy hoodie for chilly days.",
         image: "/images/hoodie/hoodie1.jpg",
-        category: "Men's Clothing",
+        category: "Casual",
         rating: 4.7,
         price: "$39.99",
         priceWas: "",
@@ -238,6 +241,8 @@ export const ProductsData = [
       {
         id: 21,
         image: "/maylike2.png",
+        category: "Formal",
+        description: "Elegant for office wear.",
         title: "Polo with Contrast Trims",
         price: "$212",
         priceWas: "$242",
@@ -246,6 +251,8 @@ export const ProductsData = [
       {
         id: 22,
         image: "/maylike3.png",
+        category: "Formal",
+        description: "Elegant for office wear.",
         title: "Gradient Graphic T-shirt",
         price: "$145",
         priceWas: "",
@@ -255,6 +262,8 @@ export const ProductsData = [
           id: 23,
           image: "/maylike1.png",
           title: "Polo with Tipping Details",
+          category: "Formal",
+          description: "Elegant for office wear.",
           price: "$180",
           priceWas: "",
           rating: 4.5,
@@ -263,6 +272,8 @@ export const ProductsData = [
         id: 24,
         image: "/maylike4.png",
         title: "Black Striped T-shirt",
+        category: "Formal",
+        description: "Elegant for office wear.",
         price: "$120",
         priceWas: "$160",
         rating: 5.0,
@@ -282,3 +293,23 @@ export const TopSell = ProductsData.filter(product => product.rating > 4.7);
 export const ProductsYouMayLike = ProductsData.filter(
   product => product.rating > 4.5 && product.priceWas
 );
+
+// Products Formals
+export const Formals = ProductsData.filter(product => product.category.toLowerCase() === "formal");
+console.log(Formals)
+
+//Casual Products
+export const Casuals = ProductsData.filter(product => product.category.toLowerCase() === "casual");
+
+//Gym Products
+export const Gym = ProductsData.filter(product => product.category.toLowerCase() === "gym");
+
+// Accessories
+export const accessories = ProductsData.filter(product => product.category.toLowerCase() === "accessories");
+
+// Party Products
+export const Party = ProductsData.filter(product => product.category.toLowerCase() === "party");
+
+// Footwear
+
+export const Footwear = ProductsData.filter(product => product.category.toLowerCase() === "footwear");
