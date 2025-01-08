@@ -64,7 +64,7 @@ const CasualCard = () => {
   
     <div className="w-[90%] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
       {currentCards.map((item) => (
-        <Link href={`/testdetail/${item.id}`}>
+        <Link href={`/testdetail/${item.id}`} key={item.id}>
         <div key={item.id} className="bg-white rounded-lg p-4 hover:scale-105 hover:shadow-xl transition-all duration-300">
           
           <div className="relative w-full h-[300px] rounded-md overflow-hidden">
