@@ -7,23 +7,25 @@ import BottomFooter from "../bottomfooter/bottomfooter";
 
 export default function Footer() {
   return (
-    <div className="max-w-full flex flex-col justifly-center items-center">
-      {/* Adjusted Newsletter Section */}
-      <div className="w-full flex justify-start">
-        <div className="ml-2 "> {/* Add margin to move it left */}
+    <div className="w-full flex flex-col justify-center items-center">
+      {/* Newsletter Section */}
+      <div className="w-full flex justify-start px-4">
+        <div className="ml-2 w-full sm:w-auto">
           <NewsLetter />
         </div>
       </div>
 
       <div className="bg-[#F0F0F0] w-full py-8 px-4 sm:px-8 lg:px-20 mt-16 mb-12">
-        <div className="max-w-full mx-auto flex flex-col lg:flex-row justify-between gap-8 lg:gap-12 mt-4 mb-8">
+        <div className="max-w-full mx-auto flex flex-col sm:flex-row justify-between gap-8 sm:gap-12 mt-4 mb-8">
           {/* Company Info Section */}
-          <div className="flex flex-col items-start">
-            <h3 className="text-4xl font-bold font-satoshi mb-4">SHOP.CO</h3>
-            <p className="text-sm text-[#00000099] mb-6 max-w-[280px]">
+          <div className="flex flex-col items-center sm:items-start mb-8 sm:mb-0">
+            <h3 className="text-3xl sm:text-4xl font-bold font-satoshi mb-4 text-center sm:text-left">
+              SHOP.CO
+            </h3>
+            <p className="text-sm text-[#00000099] mb-6 max-w-[280px] text-center sm:text-left">
               We have clothes that suit your style and which you’re proud to wear. From women to men.
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-4 justify-center sm:justify-start">
               <div className="h-[35px] w-[35px] rounded-full bg-white flex justify-center items-center">
                 <IoLogoTwitter className="text-xl" />
               </div>
@@ -40,7 +42,7 @@ export default function Footer() {
           </div>
 
           {/* Links Section */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 w-full">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-12 w-full">
             {/* Individual Links */}
             <div>
               <h5 className="text-lg font-semibold mb-4 tracking-wide">COMPANY</h5>
