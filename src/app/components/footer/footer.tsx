@@ -7,7 +7,7 @@ import BottomFooter from "../bottomfooter/bottomfooter";
 
 export default function Footer() {
   return (
-    <div className="w-full flex flex-col justify-center items-center">
+    <div className="w-full absolute flex flex-col justify-center items-center">
       {/* Newsletter Section */}
       <div className="w-full flex justify-start px-4">
         <div className="ml-2 w-full sm:w-auto">

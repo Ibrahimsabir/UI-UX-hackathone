@@ -5,7 +5,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import { IoPersonCircleSharp } from "react-icons/io5";
 import Link from 'next/link';
 
-const Navbar = () => {
+const Navbar = (props) => {
   return (
     <div className="font-IntegralCF w-full h-auto bg-white border-b border-gray-300">
       <div className="max-w-[1170px] h-full flex flex-col md:flex-row justify-between items-center px-4 sm:px-6 md:px-8 lg:px-0 mx-auto gap-4 md:gap-8 py-4 md:py-0">
@@ -48,6 +48,7 @@ const Navbar = () => {
   {/* Icons */}
   <div className="flex items-center gap-4">
     <FiShoppingCart className="text-xl sm:text-2xl text-black cursor-pointer hover:text-gray-700 transition-all duration-200" />
+    <span>{props.cartItem}</span>
     <IoPersonCircleSharp className="text-2xl sm:text-3xl text-black cursor-pointer hover:text-gray-700 transition-all duration-200" />
   </div>
 </div>

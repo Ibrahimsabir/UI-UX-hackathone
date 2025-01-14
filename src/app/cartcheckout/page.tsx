@@ -1,5 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
+import CasualCard from '../components/casualcard'
+import ProductDetailGrid from '../components/productdetail/productpics'
 
   
 

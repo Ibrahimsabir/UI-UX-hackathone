@@ -7,16 +7,18 @@ const CategoryPage = () => {
   return (
     <div className="max-w-[1440px] max-h-full flex-grow justify-start items-center">
     <CategoryTop/>
-    <div className='flex max-w-[90%] max-h-full justify-center items-center mb-48 mt-8 m-auto p-2'>
-        <div className='w-[295px] h-[1120px] border-2 border-gray-200'></div>
-        <div className='w-[925px] h-[1240px] border-b-2 border-gray-200 p-2'>
-         
-          <CasualCard/><br />
+  <div className="flex flex-col sm:flex-row max-w-[90%] max-h-full justify-center items-center mb-48 mt-8 m-auto p-2">
+  {/* First Div */}
+       <div className="w-[295px] h-[1120px] border-2 border-gray-200 mb-4 sm:mb-0 sm:mr-4">
+        
+       </div>
 
-
-        </div>
-
+  {/* Second Div (with CasualCard component) */}
+  <div className="w-[925px] h-[1240px] border-b-2 border-gray-200 p-2">
+    <CasualCard />
+  </div>
     </div>
+
     </div>
   )
 }

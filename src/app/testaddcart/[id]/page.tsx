@@ -17,21 +17,20 @@ export interface Product {
   priceWas: string;
   rating: number;
   description?: string;
- 
-};
+}
 
 const ProductDetail = ({ params }: { params: { id: number } }) => {
   const [product, setProduct] = useState<Product | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [cartItem, setCartItem] = useState([]);
+  const [cartItems, setCartItems] = useState<Product[]>([]); // Store full product details in cart
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const { id } = params;
@@ -45,13 +44,17 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
     }
   }, [id]); // Add id to the dependency array
 
-  const addtocarthandler = () => {
-    toast.success("Item added to cart!", {
-      position: "top-center",
-    });
+  const addToCartHandler = () => {
+    if (product) {
+      setCartItems((prevItems) => [...prevItems, product]); // Add the product to the cart
+      toast.success("Item added to cart!", {
+        position: "top-center",
+      });
+    }
   };
 
   const fallbackImage = "/images/default-product.jpg";
+  
 
   return (
     <div className="max-w-full h-full flex-grow justify-start items-center">
@@ -173,7 +176,7 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
                 </span>
                 <div className="flex justify-end items-center">
                   <button
-                    onClick={addtocarthandler} 
+                    onClick={addToCartHandler} // Add to Cart button functionality
                     className="w-auto text-sm md:text-lg bg-[#f7d1a6] font-medium py-1 px-2 text-white rounded-lg hover:shadow-lg"
                   >
                     Add To Cart

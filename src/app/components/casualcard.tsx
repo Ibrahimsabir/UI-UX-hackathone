@@ -16,14 +16,14 @@ type CasualCardData = {
 };
 
 const CasualCard = () => {
-  // Fix the filtering logic to properly check for "casual" or "formal"
-  const card: CasualCardData[] = ProductsData.filter(product => 
+  // Filter products based on "casual" and "formal" categories
+  const card: CasualCardData[] = ProductsData.filter(product =>
     product.category.toLowerCase() === "formal" || product.category.toLowerCase() === "casual"
   );
 
   // Pagination setup
   const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 9; // Number of cards per page
+  const cardsPerPage = 6; // Display 6 cards per page (2 columns and 3 rows on mobile)
   const totalPages = Math.ceil(card.length / cardsPerPage); // Total number of pages
 
   // Get the cards for the current page
@@ -64,12 +64,12 @@ const CasualCard = () => {
           Casual
         </h1>
       </div>
-    
+
       {/* Product Cards */}
-      <div className="w-[90%] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+      <div className="w-[90%] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
         {currentCards.map((item) => (
           <Link href={`/testdetail/${item.id}`} key={item.id}>
-            <div key={item.id} className="bg-white rounded-lg p-4 hover:scale-105 hover:shadow-xl transition-all duration-300">
+            <div className="bg-white rounded-lg p-4 hover:scale-105 hover:shadow-xl transition-all duration-300">
               <div className="relative w-full h-[300px] rounded-md overflow-hidden">
                 <Image src={item.image} alt={item.title} layout="fill" objectFit="cover" className="rounded-md" />
               </div>
@@ -97,29 +97,29 @@ const CasualCard = () => {
           </Link>
         ))}
       </div>
-    
+
       {/* Pagination Controls */}
-      <div className="col-span-full flex justify-center md:justify-between items-center px-12 mt-8 mb-12">
+      <div className="col-span-full border-y-2 border-gray-200 flex justify-center sm:justify-between items-center py-6 px-12 mt-8 mb-36 flex-wrap">
         {/* Previous Button */}
         <button
           onClick={goToPreviousPage}
           disabled={currentPage === 1}
-          className={`flex gap-4 justify-between items-center text-lg font-Satoshi font-medium text-black px-16 py-2 border-2 border-gray-200 rounded-xl ${currentPage === 1 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-black hover:text-white"}`}
+          className={`flex gap-4 justify-center items-center text-lg sm:text-xl font-Satoshi font-medium text-black px-8 sm:px-16 py-2 border-2 border-gray-200 rounded-xl ${currentPage === 1 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-black hover:text-white"}`}
         >
           <FaArrowLeft />
           Previous
         </button>
-    
+
         {/* Page Number Display */}
-        <div className="flex items-center justify-center text-lg">
+        <div className="flex items-center justify-center text-lg sm:text-xl">
           Page {currentPage} of {totalPages}
         </div>
-    
+
         {/* Next Button */}
         <button
           onClick={goToNextPage}
           disabled={currentPage === totalPages}
-          className={`flex gap-4 justify-between items-center text-lg font-Satoshi font-medium text-black px-16 py-2 border-2 border-gray-200 rounded-xl ${currentPage === totalPages ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-black hover:text-white"}`}
+          className={`flex gap-4 justify-center items-center text-lg sm:text-xl font-Satoshi font-medium text-black px-8 sm:px-16 py-2 border-2 border-gray-200 rounded-xl ${currentPage === totalPages ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-black hover:text-white"}`}
         >
           Next
           <FaArrowRight />
