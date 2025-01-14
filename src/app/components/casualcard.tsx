@@ -23,7 +23,7 @@ const CasualCard = () => {
 
   // Pagination setup
   const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 6; // Display 6 cards per page (2 columns and 3 rows on mobile)
+  const cardsPerPage = 9; // Display 6 cards per page (2 columns and 3 rows on mobile)
   const totalPages = Math.ceil(card.length / cardsPerPage); // Total number of pages
 
   // Get the cards for the current page
