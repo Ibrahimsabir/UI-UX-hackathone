@@ -17,21 +17,20 @@ export interface Product {
   priceWas: string;
   rating: number;
   description?: string;
- 
-};
+}
 
 const ProductDetail = ({ params }: { params: { id: number } }) => {
   const [product, setProduct] = useState<Product | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [cartItem, setCartItem] = useState([]);
+  const [isAddedToCart, setIsAddedToCart] = useState(false); // To track if the item is in the cart
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const { id } = params;
@@ -46,9 +45,18 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
   }, [id]); // Add id to the dependency array
 
   const addtocarthandler = () => {
-    toast.success("Item added to cart!", {
-      position: "top-center",
-    });
+    if (product) {
+      // Here, we would add the item to the cart (e.g., update state or localStorage)
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      
+      // Update the "Add to Cart" button state to reflect the item is added
+      setIsAddedToCart(true);
+      toast.success("Item added to cart!", {
+        position: "top-center",
+      });
+    }
   };
 
   const fallbackImage = "/images/default-product.jpg";
@@ -173,10 +181,14 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
                 </span>
                 <div className="flex justify-end items-center">
                   <button
-                    onClick={addtocarthandler} 
-                    className="text-lg font-Satoshi font-medium text-black px-8 py-2 border-2 border-gray-200 hover:bg-black hover:text-white rounded-full w-[60%] sm:w-[40%] md:w-[30%] lg:w-[20%]"
+                    onClick={addtocarthandler}
+                    className={`text-lg font-Satoshi font-medium text-black px-4 py-2 border-2 rounded-full w-auto ${
+                      isAddedToCart
+                        ? "bg-green-500 text-white border-green-500"
+                        : "border-gray-200 hover:bg-black hover:text-white"
+                    }`}
                   >
-                    Add To Cart
+                    {isAddedToCart ? "Added" : "Add To Cart"}
                   </button>
                   <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                     <AiOutlineHeart className="w-5 h-5" />

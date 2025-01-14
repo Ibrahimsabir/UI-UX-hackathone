@@ -11,6 +11,7 @@ export const ProductsData = [
       rating: 4.6,
       description: "Comfortable t-shirt with unique tape details.",
       color: "Gray",
+      quantity:10,
       aosDelay: 800,
     },
     {
@@ -21,7 +22,8 @@ export const ProductsData = [
       price: "$240",
       priceWas: "$260",
       rating: 4.8,
-      description: "Stylish skinny fit jeans for all occasions."
+      description: "Stylish skinny fit jeans for all occasions.",
+      quantity:10,
     },
     {
       id: 3,
@@ -31,7 +33,8 @@ export const ProductsData = [
       price: "$180",
       priceWas: "",
       rating: 4.8,
-      description: "Classic checkered shirt for casual wear."
+      description: "Classic checkered shirt for casual wear.",
+      quantity:10,
     },
     {
       id: 4,
@@ -42,6 +45,7 @@ export const ProductsData = [
       priceWas: "$160",
       rating: 4.7,
       description: "Striped t-shirt for a modern look.",
+      quantity:10,
       color: "Gray",
       aosDelay: 800,
     },
@@ -54,6 +58,7 @@ export const ProductsData = [
       priceWas: "$232",
       rating: 4.7,
       description: "Trendy vertical striped shirt for all seasons.",
+      quantity:10,
       color: "Gray",
       aosDelay: 800,
     },
@@ -66,6 +71,7 @@ export const ProductsData = [
       priceWas: "",
       rating: 4.0,
       description: "Bold graphic t-shirt with motivational quotes.",
+      quantity:10,
       color: "Gray",
       aosDelay: 800,
     },
@@ -78,6 +84,7 @@ export const ProductsData = [
       priceWas: "",
       rating: 4.8,
       description: "Elegant and chic luxury watch for women.",
+      quantity:10,
       color: "Gray",
       aosDelay: 800,
       
@@ -90,7 +97,8 @@ export const ProductsData = [
       price: "$12.99",
       priceWas: "$14.99",
       rating: 4.7,
-      description: "Everyday casual t-shirt for relaxed style.",     
+      description: "Everyday casual t-shirt for relaxed style.", 
+      quantity:10,    
       color: "Gray",
       aosDelay: 800,
     },
@@ -110,6 +118,7 @@ export const ProductsData = [
       id: 10,
       title: "Classic Denim Short",
       description: "Timeless denim shorts for all seasons.",
+      quantity:10,
       image: "/images/men-clothing/denim-bottom (3).png",
       category: "Casual",
       rating: 4.3,
@@ -122,6 +131,7 @@ export const ProductsData = [
         id: 11,
         title: "Sports Watch",
         description: "Durable sports watch for outdoor enthusiasts.",
+        quantity:10,
         image: "/images/accessories/wallet.jpg",
         category: "Gym",
         rating: 4.9,
@@ -140,6 +150,7 @@ export const ProductsData = [
         price: "$24.99",
         priceWas: "",
         color: "Gold",
+        quantity:10,
         aosDelay: 1200,
       },
       {
@@ -152,6 +163,7 @@ export const ProductsData = [
         price: "$29.99",
         priceWas: "$39.99",
         color: "Brown",
+        quantity:10,
         aosDelay: 1300,
       },
       {
@@ -164,6 +176,7 @@ export const ProductsData = [
         price: "$49.99",
         priceWas: "",
         color: "Black",
+        quantity:10,
         aosDelay: 1400,
       },
       {
@@ -175,6 +188,7 @@ export const ProductsData = [
         rating: 4.7,
         price: "$34.99",
         priceWas: "$39.99",
+        quantity:10,
         color: "Yellow",
         aosDelay: 1500,
       },
@@ -188,6 +202,7 @@ export const ProductsData = [
         price: "$59.99",
         priceWas: "$80.00",
         color: "White",
+        quantity:10,
         aosDelay: 1600,
       },
       {
@@ -200,6 +215,7 @@ export const ProductsData = [
         price: "$69.99",
         priceWas: "$79.99",
         color: "Blue",
+        quantity:10,
         aosDelay: 1700,
       },
       {
@@ -212,6 +228,7 @@ export const ProductsData = [
         price: "$19.99",
         priceWas: "",
         color: "Brown",
+        quantity:10,
         aosDelay: 1800,
       },
       {
@@ -224,6 +241,7 @@ export const ProductsData = [
         price: "$39.99",
         priceWas: "",
         color: "Gray",
+        quantity:10,
         aosDelay: 1900,
       },
       {
@@ -236,6 +254,7 @@ export const ProductsData = [
         price: "$89.99",
         priceWas: "$99.99",
         color: "Black",
+        quantity:10,
         aosDelay: 2000,
       },
       {
@@ -246,6 +265,7 @@ export const ProductsData = [
         title: "Polo with Contrast Trims",
         price: "$212",
         priceWas: "$242",
+        quantity:10,
         rating: 4.0,
       },
       {
@@ -257,6 +277,7 @@ export const ProductsData = [
         price: "$145",
         priceWas: "",
         rating: 3.5,
+        quantity:10,
       },
       {
           id: 23,
@@ -267,6 +288,7 @@ export const ProductsData = [
           price: "$180",
           priceWas: "",
           rating: 4.5,
+          quantity:10,
         },
       {
         id: 24,
@@ -277,6 +299,7 @@ export const ProductsData = [
         price: "$120",
         priceWas: "$160",
         rating: 5.0,
+        quantity:10,
       },
     // Add other products here...
   ];

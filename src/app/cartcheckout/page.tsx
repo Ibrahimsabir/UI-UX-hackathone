@@ -1,78 +1,128 @@
-import React from 'react'
-import Image from 'next/image'
-import CasualCard from '../components/casualcard'
-import ProductDetailGrid from '../components/productdetail/productpics'
+"use client";
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { AiOutlineDelete } from "react-icons/ai";
+import toast, { Toaster } from "react-hot-toast";
 
-  
+type Product = {
+  id: number;
+  image: string;
+  title: string;
+  price: string;
+  priceWas: string;
+  rating: number;
+  quantity: number
+};
+const CartPage = () => {
+  const [cartItems, setCartItems] = useState<Product[]>([]);
 
-const CartCheckOut = () => {
-    
+  useEffect(() => {
+    // Retrieve cart data from localStorage when component mounts
+    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    setCartItems(storedCart);
+  }, []);
+
+  // Remove an item from the cart
+  const removeItemFromCart = (id: number) => {
+    const updatedCart = cartItems.filter((item) => item.id !== id);
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    toast.success("Item removed from cart", {
+      position: "top-center",
+    });
+  };
+
+  // Update the quantity of an item in the cart
+  const updateQuantity = (id: number, action: "increase" | "decrease") => {
+    const updatedCart = cartItems.map((item) => {
+      if (item.id === id) {
+        const updatedItem = { ...item };
+        updatedItem.quantity = action === "increase"
+          ? updatedItem.quantity + 1
+          : updatedItem.quantity > 1
+          ? updatedItem.quantity - 1
+          : updatedItem.quantity;
+        return updatedItem;
+      }
+      return item;
+    });
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
+  // Calculate the total price of the cart
+  const calculateTotal = () => {
+    return cartItems.reduce((total, item) => {
+      const price = parseFloat(item.price.replace("$", ""));
+      return total + price * item.quantity;
+    }, 0);
+  };
+
   return (
-    <div className='w-[710px]  h-[508px] h-flex md:flex-col justify-center items-center m-auto'>
-        <div className='w-[667px] h-[124px] flex justift-start items-center p-2 m-auto border-2 border-gray-100 divide-2 divide-gray-100 '>
-            <Image
-                src="/maylike3.png"
-                width={124}
-                height={124}
-                alt="1st Item Selected"
-                />
-                <div className='flex flex-col justify-start items-center p-2 m-auto'>
-                    <h1 className='text-xl font-semibold font-[Santoshi]'>Gradient Graphic T-shirt</h1>
-                    <h2 className='text-xl font-semibold font-[Santoshi]'>Size: Large</h2>
-                    <h2 className='text-xl font-semibold font-[Santoshi]'>Color: Blue</h2>
-                  <div className='flex justify-between items-center mx-auto'>
-                    <h1 className='text-2xl font-semibold font-[Santoshi]'>$ 145</h1>
-                    <button className='text-2xl font-semibold font-[Santoshi] rounded-4xl bg-gray-300'>
-                        -  1  +
-                    </button >
+    <div className="min-h-screen py-12 px-6 sm:px-12 lg:px-20">
+      <Toaster />
+      <div className="container mx-auto">
+        <h1 className="text-3xl font-semibold text-center mb-6">Your Cart</h1>
 
+        {/* Cart Items */}
+        {cartItems.length === 0 ? (
+          <div className="text-center text-xl">Your cart is empty</div>
+        ) : (
+          <div className="space-y-6">
+            {cartItems.map((item) => (
+              <div key={item.id} className="flex items-center justify-between border-b-2 pb-6 pt-4">
+                <div className="flex items-center gap-4">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-20 h-20 object-cover rounded-lg"
+                  />
+                  <div>
+                    <h2 className="text-xl">{item.title}</h2>
+                    <p className="text-gray-500">{item.price}</p>
+                    {/* Quantity Selector */}
+                    <div className="flex items-center mt-2">
+                      <button
+                        onClick={() => updateQuantity(item.id, "decrease")}
+                        className="text-lg text-gray-600 px-3 py-1 bg-gray-200 rounded"
+                      >
+                        -
+                      </button>
+                      <span className="mx-4 text-lg">{item.quantity}</span>
+                      <button
+                        onClick={() => updateQuantity(item.id, "increase")}
+                        className="text-lg text-gray-600 px-3 py-1 bg-gray-200 rounded"
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
                 </div>
-                
-        </div>
-        <div className='w-[667px] h-[124px] flex justift-start items-center p-2 m-auto border-2 border-gray-100 divide-2 divide-gray-100 '>
-            <Image
-                src="/maylike3.png"
-                width={124}
-                height={124}
-                alt="1st Item Selected"
-                />
-                <div className='flex flex-col justify-start items-center p-2 m-auto'>
-                    <h1 className='text-xl font-semibold font-[Santoshi]'>Gradient Graphic T-shirt</h1>
-                    <h2 className='text-xl font-semibold font-[Santoshi]'>Size: Large</h2>
-                    <h2 className='text-xl font-semibold font-[Santoshi]'>Color: Blue</h2>
-                  <div className='flex justify-between items-center mx-auto'>
-                    <h1 className='text-2xl font-semibold font-[Santoshi]'>$ 145</h1>
-                    <button className='text-2xl font-semibold font-[Santoshi] rounded-4xl bg-gray-300'>
-                        -  1  +
-                    </button >
+                <button
+                  onClick={() => removeItemFromCart(item.id)}
+                  className="text-red-500 hover:text-red-700 transition"
+                >
+                  <AiOutlineDelete className="w-6 h-6" />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
 
-                  </div>
-                </div>
-                
-        </div>
-        <div className='w-[667px] h-[124px] flex justift-start items-start p-2 m-auto border-2 border-gray-100 divide-x-2 divide-gray-100 '>
-            <Image
-                src="/maylike3.png"
-                width={124}
-                height={124}
-                alt="1st Item Selected"
-                />
-                <div className='flex flex-col justify-start items-center p-2 '>
-                    <h1 className='text-xl font-semibold font-[Santoshi]'>Gradient Graphic T-shirt</h1>
-                    <h2 className='text-xl font-semibold font-[Santoshi]'>Size: Large</h2>
-                    <h2 className='text-xl font-semibold font-[Santoshi]'>Color: Blue</h2>
-                  <div className='flex justify-evenly items-center mx-2'>
-                    <h1 className='text-2xl font-semibold font-[Santoshi]'>$ 145</h1>
-                    <button className='text-2xl font-semibold font-[Santoshi] rounded-4xl bg-gray-300'>
-                        -  1  +
-                    </button >
-
-                  </div>
-                </div>
-                
-        </div>
+        {/* Total Price and Checkout */}
+        {cartItems.length > 0 && (
+          <div className="mt-8 flex justify-between items-center text-lg font-semibold">
+            <div className="text-gray-900">Total: ${calculateTotal().toFixed(2)}</div>
+            <Link href="/checkout">
+              <button className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition">
+                Proceed to Checkout
+              </button>
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
-  )
-}
-export default CartCheckOut
+  );
+};
+
+export default CartPage;
