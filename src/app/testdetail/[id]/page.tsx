@@ -66,7 +66,7 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
                   // Mobile Layout
                   <div>
                     {/* Large Image */}
-                    <div className="w-full h-[350px] rounded overflow-hidden mb-4">
+                    <div className="w-full h-[350px] rounded-3xl overflow-hidden mb-4">
                       <Link href="/large-image">
                         <div className="group relative">
                           <Image
@@ -83,7 +83,7 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
                     {/* Row of Smaller Images */}
                     <div className="grid grid-cols-3 gap-4">
                       {["/image 2.png", "/image 5.png", "/image 6.png"].map((img, idx) => (
-                        <div key={idx} className="w-full h-[162px] rounded overflow-hidden">
+                        <div key={idx} className="w-full h-[162px] rounded-3xl overflow-hidden">
                           <Link href={`/small-image-${idx + 1}`}>
                             <div className="group relative">
                               <Image
@@ -174,7 +174,7 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
                 <div className="flex justify-end items-center">
                   <button
                     onClick={addtocarthandler} 
-                    className="w-auto text-sm md:text-lg bg-[#f7d1a6] font-medium py-1 px-2 text-white rounded-lg hover:shadow-lg"
+                    className="text-lg font-Satoshi font-medium text-black px-8 py-2 border-2 border-gray-200 hover:bg-black hover:text-white rounded-full w-[60%] sm:w-[40%] md:w-[30%] lg:w-[20%]"
                   >
                     Add To Cart
                   </button>
