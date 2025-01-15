@@ -11,13 +11,18 @@ type Product = {
   price: string;
   priceWas: string;
   rating: number;
-  quantity: number
+  quantity: number;  // This is stock quantity, i.e., how many units are available.
 };
-const CartPage = () => {
-  const [cartItems, setCartItems] = useState<Product[]>([]);
 
+type CartItem = Product & {
+  cartQuantity: number; // This tracks the quantity in the cart, separate from stock quantity.
+};
+
+const CartPage = () => {
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  // Retrieve cart data from localStorage when the component mounts
   useEffect(() => {
-    // Retrieve cart data from localStorage when component mounts
     const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
     setCartItems(storedCart);
   }, []);
@@ -32,16 +37,11 @@ const CartPage = () => {
     });
   };
 
-  // Update the quantity of an item in the cart
-  const updateQuantity = (id: number, action: "increase" | "decrease") => {
+  // Increase the quantity of an item in the cart
+  const increaseQuantity = (id: number) => {
     const updatedCart = cartItems.map((item) => {
-      if (item.id === id) {
-        const updatedItem = { ...item };
-        updatedItem.quantity = action === "increase"
-          ? updatedItem.quantity + 1
-          : updatedItem.quantity > 1
-          ? updatedItem.quantity - 1
-          : updatedItem.quantity;
+      if (item.id === id && item.cartQuantity < item.quantity) { // Ensure cart quantity doesn't exceed stock
+        const updatedItem = { ...item, cartQuantity: item.cartQuantity + 1 };
         return updatedItem;
       }
       return item;
@@ -50,11 +50,55 @@ const CartPage = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
+  // Decrease the quantity of an item in the cart
+  const decreaseQuantity = (id: number) => {
+    const updatedCart = cartItems.map((item) => {
+      if (item.id === id && item.cartQuantity > 1) {
+        const updatedItem = { ...item, cartQuantity: item.cartQuantity - 1 };
+        return updatedItem;
+      }
+      return item;
+    });
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
+  // Add a product to the cart or increase the quantity if it already exists
+  const addToCart = (product: Product) => {
+    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    
+    // Check if the item already exists in the cart
+    const existingItem = storedCart.find((item: CartItem) => item.id === product.id);
+
+    if (existingItem) {
+      // If the item exists, increase its cartQuantity by 1 (only if stock is available)
+      if (existingItem.cartQuantity < product.quantity) {
+        existingItem.cartQuantity += 1;
+      } else {
+        toast.error("Cannot add more. Out of stock.", {
+          position: "top-center",
+        });
+        return;
+      }
+    } else {
+      // Otherwise, add the item with cartQuantity set to 1
+      storedCart.push({ ...product, cartQuantity: 1 });
+    }
+
+    // Save the updated cart back to localStorage
+    localStorage.setItem("cart", JSON.stringify(storedCart));
+    setCartItems(storedCart);
+
+    toast.success("Item added to cart", {
+      position: "top-center",
+    });
+  };
+
   // Calculate the total price of the cart
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => {
       const price = parseFloat(item.price.replace("$", ""));
-      return total + price * item.quantity;
+      return total + price * item.cartQuantity;
     }, 0);
   };
 
@@ -70,7 +114,10 @@ const CartPage = () => {
         ) : (
           <div className="space-y-6">
             {cartItems.map((item) => (
-              <div key={item.id} className="flex items-center justify-between border-b-2 pb-6 pt-4">
+              <div
+                key={item.id}
+                className="flex items-center justify-between border-b-2 pb-6 pt-4"
+              >
                 <div className="flex items-center gap-4">
                   <img
                     src={item.image}
@@ -80,22 +127,24 @@ const CartPage = () => {
                   <div>
                     <h2 className="text-xl">{item.title}</h2>
                     <p className="text-gray-500">{item.price}</p>
-                    {/* Quantity Selector */}
                     <div className="flex items-center mt-2">
                       <button
-                        onClick={() => updateQuantity(item.id, "decrease")}
+                        onClick={() => decreaseQuantity(item.id)}
                         className="text-lg text-gray-600 px-3 py-1 bg-gray-200 rounded"
                       >
                         -
                       </button>
-                      <span className="mx-4 text-lg">{item.quantity}</span>
+                      <span className="mx-4 text-lg">{item.cartQuantity}</span>
                       <button
-                        onClick={() => updateQuantity(item.id, "increase")}
+                        onClick={() => increaseQuantity(item.id)}
                         className="text-lg text-gray-600 px-3 py-1 bg-gray-200 rounded"
                       >
                         +
                       </button>
                     </div>
+                    <p className="text-sm text-gray-400 mt-2">
+                      {item.cartQuantity} / {item.quantity} in stock
+                    </p>
                   </div>
                 </div>
                 <button
@@ -112,7 +161,9 @@ const CartPage = () => {
         {/* Total Price and Checkout */}
         {cartItems.length > 0 && (
           <div className="mt-8 flex justify-between items-center text-lg font-semibold">
-            <div className="text-gray-900">Total: ${calculateTotal().toFixed(2)}</div>
+            <div className="text-gray-900">
+              Total: ${calculateTotal().toFixed(2)}
+            </div>
             <Link href="/checkout">
               <button className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition">
                 Proceed to Checkout

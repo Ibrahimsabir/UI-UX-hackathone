@@ -182,7 +182,7 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
                 <div className="flex justify-end items-center">
                   <button
                     onClick={addtocarthandler}
-                    className={`text-lg font-Satoshi font-medium text-black px-4 py-2 border-2 rounded-full w-auto ${
+                    className={`text-lg font-Satoshi font-medium text-black px-4 py-2 border-2 rounded-full w-auto mr-2 ${
                       isAddedToCart
                         ? "bg-green-500 text-white border-green-500"
                         : "border-gray-200 hover:bg-black hover:text-white"
@@ -190,6 +190,11 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
                   >
                     {isAddedToCart ? "Added" : "Add To Cart"}
                   </button>
+                  <Link href={"/cartcheckout"}>
+                  <button className="text-lg font-Satoshi font-medium text-black px-4 py-2 border-2 rounded-full w-auto  hover:bg-black hover:text-white">
+                    View Cart
+                  </button>
+                  </Link>
                   <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                     <AiOutlineHeart className="w-5 h-5" />
                   </button>
