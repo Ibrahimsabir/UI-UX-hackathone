@@ -1,177 +1,194 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
 import toast, { Toaster } from "react-hot-toast";
 
-type Product = {
+export interface Product {
   id: number;
-  image: string;
   title: string;
+  description: string;
+  img: string;
+  category: string;
+  rating: number;
   price: string;
   priceWas: string;
-  rating: number;
-  quantity: number;  // This is stock quantity, i.e., how many units are available.
-};
-
-type CartItem = Product & {
-  cartQuantity: number; // This tracks the quantity in the cart, separate from stock quantity.
-};
+  color: string;
+  aosDelay: number;
+  quantity: number;
+}
 
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<Product[]>([]);
+  const [showSummary, setShowSummary] = useState(false);
 
-  // Retrieve cart data from localStorage when the component mounts
+  // Fetch cart from localStorage
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    setCartItems(storedCart);
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
   }, []);
 
-  // Remove an item from the cart
-  const removeItemFromCart = (id: number) => {
-    const updatedCart = cartItems.filter((item) => item.id !== id);
-    setCartItems(updatedCart);
+  // Remove item from cart
+  const removeFromCart = (id: number) => {
+    const updatedCart = cart.filter((item) => item.id !== id);
+    setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     toast.success("Item removed from cart", {
       position: "top-center",
     });
   };
 
-  // Increase the quantity of an item in the cart
-  const increaseQuantity = (id: number) => {
-    const updatedCart = cartItems.map((item) => {
-      if (item.id === id && item.cartQuantity < item.quantity) { // Ensure cart quantity doesn't exceed stock
-        const updatedItem = { ...item, cartQuantity: item.cartQuantity + 1 };
-        return updatedItem;
-      }
-      return item;
-    });
-    setCartItems(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-  };
-
-  // Decrease the quantity of an item in the cart
+  // Decrease item quantity in cart
   const decreaseQuantity = (id: number) => {
-    const updatedCart = cartItems.map((item) => {
-      if (item.id === id && item.cartQuantity > 1) {
-        const updatedItem = { ...item, cartQuantity: item.cartQuantity - 1 };
-        return updatedItem;
-      }
-      return item;
-    });
-    setCartItems(updatedCart);
+    const updatedCart = cart.map((item) =>
+      item.id === id && item.quantity > 1
+        ? { ...item, quantity: item.quantity - 1 }
+        : item
+    );
+    setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  // Add a product to the cart or increase the quantity if it already exists
-  const addToCart = (product: Product) => {
-    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    
-    // Check if the item already exists in the cart
-    const existingItem = storedCart.find((item: CartItem) => item.id === product.id);
-
-    if (existingItem) {
-      // If the item exists, increase its cartQuantity by 1 (only if stock is available)
-      if (existingItem.cartQuantity < product.quantity) {
-        existingItem.cartQuantity += 1;
-      } else {
-        toast.error("Cannot add more. Out of stock.", {
-          position: "top-center",
-        });
-        return;
-      }
-    } else {
-      // Otherwise, add the item with cartQuantity set to 1
-      storedCart.push({ ...product, cartQuantity: 1 });
-    }
-
-    // Save the updated cart back to localStorage
-    localStorage.setItem("cart", JSON.stringify(storedCart));
-    setCartItems(storedCart);
-
-    toast.success("Item added to cart", {
-      position: "top-center",
-    });
+  // Increase item quantity in cart
+  const increaseQuantity = (id: number) => {
+    const updatedCart = cart.map((item) =>
+      item.id === id && item.quantity < 10 // Prevent going over 10 items
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
+    );
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  // Calculate the total price of the cart
-  const calculateTotal = () => {
-    return cartItems.reduce((total, item) => {
-      const price = parseFloat(item.price.replace("$", ""));
-      return total + price * item.cartQuantity;
-    }, 0);
-  };
+  // Calculate total amount
+  const totalAmount = cart.reduce((total, item) => {
+    const price = parseFloat(item.price.replace('$', '').replace(',', ''));
+    return total + price * item.quantity;
+  }, 0).toFixed(2);
 
   return (
-    <div className="min-h-screen py-12 px-6 sm:px-12 lg:px-20">
+    <div className="container mx-auto py-10 px-4">
       <Toaster />
-      <div className="container mx-auto">
-        <h1 className="text-3xl font-semibold text-center mb-6">Your Cart</h1>
-
-        {/* Cart Items */}
-        {cartItems.length === 0 ? (
-          <div className="text-center text-xl">Your cart is empty</div>
-        ) : (
-          <div className="space-y-6">
-            {cartItems.map((item) => (
+      <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-gray-600 underline uppercase animate-wobble text-center sm:text-left">
+        Your Cart
+      </h1>
+      {cart.length === 0 ? (
+        <p className="text-center text-gray-600">Your cart is empty.</p>
+      ) : (
+        <div className="flex flex-col gap-6">
+          {/* Cart Items */}
+          <div className="flex flex-col gap-6">
+            {cart.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between border-b-2 pb-6 pt-4"
+                className="flex flex-col sm:flex-row gap-6 sm:gap-12 items-center bg-white p-4 rounded-lg shadow-md"
               >
-                <div className="flex items-center gap-4">
-                  <img
-                    src={item.image}
+                <div className="w-20 h-20 sm:w-24 sm:h-24">
+                  <Image
+                    src={item.img || "/images/default-product.jpg"}
                     alt={item.title}
-                    className="w-20 h-20 object-cover rounded-lg"
+                    width={96}
+                    height={96}
+                    className="object-cover rounded"
                   />
-                  <div>
-                    <h2 className="text-xl">{item.title}</h2>
-                    <p className="text-gray-500">{item.price}</p>
-                    <div className="flex items-center mt-2">
-                      <button
-                        onClick={() => decreaseQuantity(item.id)}
-                        className="text-lg text-gray-600 px-3 py-1 bg-gray-200 rounded"
-                      >
-                        -
-                      </button>
-                      <span className="mx-4 text-lg">{item.cartQuantity}</span>
-                      <button
-                        onClick={() => increaseQuantity(item.id)}
-                        className="text-lg text-gray-600 px-3 py-1 bg-gray-200 rounded"
-                      >
-                        +
-                      </button>
-                    </div>
-                    <p className="text-sm text-gray-400 mt-2">
-                      {item.cartQuantity} / {item.quantity} in stock
-                    </p>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-medium text-gray-800 text-lg sm:text-xl">{item.title}</h3>
+                  <p className="text-gray-600">{item.price}</p>
+                  <div className="flex items-center gap-3 mt-3">
+                    <button
+                      onClick={() => decreaseQuantity(item.id)}
+                      className="bg-gray-200 p-2 rounded text-gray-600"
+                      disabled={item.quantity <= 1}
+                    >
+                      -
+                    </button>
+                    <span className="text-lg">{item.quantity}</span>
+                    <button
+                      onClick={() => increaseQuantity(item.id)}
+                      className="bg-gray-200 p-2 rounded text-gray-600"
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
                 <button
-                  onClick={() => removeItemFromCart(item.id)}
-                  className="text-red-500 hover:text-red-700 transition"
+                  onClick={() => removeFromCart(item.id)}
+                  className="text-red-600 hover:text-red-800 mt-2 sm:mt-0"
                 >
-                  <AiOutlineDelete className="w-6 h-6" />
+                  <AiFillDelete size={24} />
                 </button>
               </div>
             ))}
           </div>
-        )}
 
-        {/* Total Price and Checkout */}
-        {cartItems.length > 0 && (
-          <div className="mt-8 flex justify-between items-center text-lg font-semibold">
-            <div className="text-gray-900">
-              Total: ${calculateTotal().toFixed(2)}
+          {/* Toggle Button to Show/Hide Cart Summary */}
+          <button
+            onClick={() => setShowSummary(!showSummary)}
+            className="bg-[#f7d1a6] text-white py-2 px-6 shadow-lg rounded-lg hover:bg-[#e3c5a2] duration-300 mt-6 inline-block mx-auto sm:mx-0"
+          >
+            {showSummary ? "Hide Cart Summary" : "Show Cart Summary"}
+          </button>
+
+          {/* Cart Summary Section */}
+          {showSummary && (
+            <div className="bg-white p-4 rounded-lg shadow-lg max-w-xs mx-auto mt-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Cart Summary</h2>
+              <div className="space-y-3">
+                {cart.map((item) => {
+                  const itemTotal = (parseFloat(item.price.replace('$', '').replace(',', '')) * item.quantity).toFixed(2);
+                  return (
+                    <div key={item.id} className="flex justify-between items-center text-sm">
+                      <div className="flex items-center">
+                        <div className="w-10 h-10 mr-3">
+                          <Image
+                            src={item.img || "/images/default-product.jpg"}
+                            alt={item.title}
+                            width={40}
+                            height={40}
+                            className="object-cover rounded"
+                          />
+                        </div>
+                        <div>
+                          <h3 className="text-sm font-medium text-gray-800">{item.title}</h3>
+                          <p className="text-gray-600 text-xs">x{item.quantity}</p>
+                        </div>
+                      </div>
+                      <div className="text-gray-800 font-semibold">${itemTotal}</div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            <Link href="/checkout">
-              <button className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition">
+          )}
+
+          {/* Total Amount Section */}
+          <div className="bg-white p-6 rounded-lg shadow-md mb-6 mt-6">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Total Amount</h2>
+            <div className="flex justify-between items-center text-xl">
+              <span className="font-medium">Total:</span>
+              <span className="text-[#f7d1a6] font-bold">${totalAmount}</span>
+            </div>
+          </div>
+
+          {/* Buttons Section */}
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <Link href="/">
+              <button className="bg-[#f7d1a6] text-white shadow-lg py-2 px-6 rounded-lg hover:bg-[#e3c5a2] duration-300 w-full sm:w-auto">
+                Continue Shopping
+              </button>
+            </Link>
+            <Link href="/checkoutpage">
+              <button className="bg-[#f7d1a6] text-white shadow-lg py-2 px-6 rounded-lg hover:bg-[#e3c5a2] duration-300 w-full sm:w-auto">
                 Proceed to Checkout
               </button>
             </Link>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
